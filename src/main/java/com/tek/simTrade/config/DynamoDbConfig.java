@@ -3,7 +3,6 @@ package com.tek.simTrade.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -11,7 +10,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 @Configuration
-@PropertySource("classpath:application.properties")
 public class DynamoDbConfig
 {
 	@Autowired
