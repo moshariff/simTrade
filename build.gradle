@@ -29,10 +29,17 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('com.amazonaws:aws-java-sdk:1.10.50')
-	testCompile('org.springframework.boot:spring-boot-starter-test') 
+ compile('org.springframework.boot:spring-boot-starter-data-rest')
+ compile('org.springframework.boot:spring-boot-starter-web')
+ compile('com.amazonaws:aws-java-sdk:1.10.50')
+ 
+ compile('org.springframework:spring-webmvc:4.1.6.RELEASE')
+ compile('javax.servlet:javax.servlet-api:3.1.0')
+ compile('javax.servlet:jstl:1.2')
+ compile('org.apache.tiles:tiles-core:3.0.5')
+ compile('org.apache.tiles:tiles-jsp:3.0.5')
+ 
+ testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 
