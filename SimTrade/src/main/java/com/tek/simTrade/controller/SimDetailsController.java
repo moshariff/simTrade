@@ -261,7 +261,30 @@ public class SimDetailsController
     
    
  
+    @RequestMapping(value = "/return-a-sim", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView ret()
+    {
+     return new ModelAndView("returnSim","user-returning", new SimDetails());
+      
+    }
     
+    @RequestMapping(value = "/user-details", method = RequestMethod.POST)
+    @ResponseBody
+    public SimDetails UserReturning(@ModelAttribute SimDetails userReturnDetails){
+      ModelAndView modelAndView = new ModelAndView();  
+         //modelAndView.setViewName("userReturnDetails");  
+           
+         modelAndView.addObject("sim", userReturnDetails);  
+         
+         
+         SimDetails dis = mapper.load(SimDetails.class,userReturnDetails.getCountry(), userReturnDetails.getUserName());
+         dis.setCurrentStatus("active");
+         dis.setCurrentUser(null);
+         
+         mapper.save(dis);
+         return dis;
+    }
     
    
  

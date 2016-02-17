@@ -19,7 +19,10 @@
 <tr>
 <td><a href="http://localhost:8080/sim-details/sim-form" style="color:red; background-color: silver;font-family:fantasy;font-style: italic;"><h2>Deposit a Sim </h2></a>
 </td>
-
+</tr>
+<tr>
+<td><a href="http://localhost:8080/sim-details/return-a-sim" style="color:red; background-color: silver;font-family:fantasy;font-style: italic;"><h2>Return a Sim </h2></a>
+</td>
 </tr>
 </TABLE>
 
