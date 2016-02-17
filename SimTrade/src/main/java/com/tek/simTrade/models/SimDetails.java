@@ -2,9 +2,6 @@ package com.tek.simTrade.models;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.web.SortDefault;
-import org.springframework.data.web.SortDefault.SortDefaults;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
@@ -12,8 +9,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "simDetails")
-public class SimDetails
-{
+public class SimDetails {
 
 	@DynamoDBRangeKey(attributeName = "userName")
 	private String userName;
@@ -21,14 +17,15 @@ public class SimDetails
 	@DynamoDBHashKey(attributeName = "country")
 	private String country;
 
-//	@DynamoDBIndexRangeKey(attributeName = "expiryDate", globalSecondaryIndexName="expiryDate", localSecondaryIndexName = "sort_by_expiryDate")
+	// @DynamoDBIndexRangeKey(attributeName = "expiryDate",
+	// globalSecondaryIndexName="expiryDate", localSecondaryIndexName =
+	// "sort_by_expiryDate")
 	@DynamoDBIndexRangeKey(attributeName = "expiryDate", localSecondaryIndexName = "sort_by_expiryDate")
 	@NotNull
 	private String expiryDate;
-	
+
 	@DynamoDBAttribute(attributeName = "simId")
 	private String simId;
-	
 
 	@DynamoDBAttribute(attributeName = "simType")
 	private String simType;
@@ -56,7 +53,7 @@ public class SimDetails
 
 	@DynamoDBAttribute(attributeName = "timestamp")
 	private String timestamp;
-	
+
 	public String getSimId() {
 		return simId;
 	}
@@ -64,137 +61,110 @@ public class SimDetails
 	public void setSimId(String simId) {
 		this.simId = simId;
 	}
-	
-	public String getUserName()
-	{
+
+	public String getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName)
-	{
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public String getCountry()
-	{
+	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country)
-	{
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
-	public String getExpiryDate()
-	{
+	public String getExpiryDate() {
 		return expiryDate;
 	}
 
-	public void setExpiryDate(String expiryDate)
-	{
+	public void setExpiryDate(String expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 
-	public String getSimType()
-	{
+	public String getSimType() {
 		return simType;
 	}
 
-	public void setSimType(String simType)
-	{
+	public void setSimType(String simType) {
 		this.simType = simType;
 	}
 
-	public String getPhoneNumber()
-	{
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber)
-	{
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getPlan()
-	{
+	public String getPlan() {
 		return plan;
 	}
 
-	public void setPlan(String plan)
-	{
+	public void setPlan(String plan) {
 		this.plan = plan;
 	}
 
-	public String getCurrentStatus()
-	{
+	public String getCurrentStatus() {
 		return currentStatus;
 	}
 
-	public void setCurrentStatus(String currentStatus)
-	{
+	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
 	}
 
-	public String getOwnerId()
-	{
+	public String getOwnerId() {
 		return ownerId;
 	}
 
-	public void setOwnerId(String ownerId)
-	{
+	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
 	}
 
-	public String getExpectedDateChange()
-	{
+	public String getExpectedDateChange() {
 		return expectedDateChange;
 	}
 
-	public void setExpectedDateChange(String expectedDateChange)
-	{
+	public void setExpectedDateChange(String expectedDateChange) {
 		this.expectedDateChange = expectedDateChange;
 	}
 
-	public String getRechargeDetails()
-	{
+	public String getRechargeDetails() {
 		return rechargeDetails;
 	}
 
-	public void setRechargeDetails(String rechargeDetails)
-	{
+	public void setRechargeDetails(String rechargeDetails) {
 		this.rechargeDetails = rechargeDetails;
 	}
 
-	public String getCurrentUser()
-	{
+	public String getCurrentUser() {
 		return currentUser;
 	}
 
-	public void setCurrentUser(String currentUser)
-	{
+	public void setCurrentUser(String currentUser) {
 		this.currentUser = currentUser;
 	}
 
-	public String getTimestamp()
-	{
+	public String getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp)
-	{
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
 	@Override
-	public String toString()
-	{
-		return "SimDetails [userName=" + userName + ", country=" + country
-				+ ", expiryDate=" + expiryDate + ",simId=" + simId + ", simType=" + simType
-				+ ", phoneNumber=" + phoneNumber + ", plan=" + plan
-				+ ", currentStatus=" + currentStatus + ", ownerId=" + ownerId
-				+ ", expectedDateChange=" + expectedDateChange
-				+ ", rechargeDetails=" + rechargeDetails + ", currentUser="
-				+ currentUser + ", timestamp=" + timestamp + "]";
+	public String toString() {
+		return "SimDetails [userName=" + userName + ", country=" + country + ", expiryDate=" + expiryDate + ",simId="
+				+ simId + ", simType=" + simType + ", phoneNumber=" + phoneNumber + ", plan=" + plan
+				+ ", currentStatus=" + currentStatus + ", ownerId=" + ownerId + ", expectedDateChange="
+				+ expectedDateChange + ", rechargeDetails=" + rechargeDetails + ", currentUser=" + currentUser
+				+ ", timestamp=" + timestamp + "]";
 	}
 
 }

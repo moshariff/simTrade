@@ -11,8 +11,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 @Configuration
-public class DynamoDbConfig
-{
+public class DynamoDbConfig {
 	@Autowired
 	private Environment env;
 
@@ -32,41 +31,35 @@ public class DynamoDbConfig
 	// return new MethodInvokingFactoryBean();
 	// }
 
-	/** use this if you need to override the table with a name*/
-//	@Bean
-//	public DynamoDBMapperConfig dynamoMapperConfig()
-//	{
-//		DynamoDBMapperConfig dynamoMapperConfig = new DynamoDBMapperConfig(new TableNameOverride("<name to override the table with>"));
-//		return dynamoMapperConfig;
-//	}
+	/** use this if you need to override the table with a name */
+	// @Bean
+	// public DynamoDBMapperConfig dynamoMapperConfig()
+	// {
+	// DynamoDBMapperConfig dynamoMapperConfig = new DynamoDBMapperConfig(new
+	// TableNameOverride("<name to override the table with>"));
+	// return dynamoMapperConfig;
+	// }
 
 	@Bean
-	public BasicAWSCredentials basicAWSCredentials()
-	{
+	public BasicAWSCredentials basicAWSCredentials() {
 		// TODO get access key and secret from properties file
-		BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(
-				env.getProperty("amazon.access.key"),
+		BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(env.getProperty("amazon.access.key"),
 				env.getProperty("amazon.secret.key"));
 		return basicAWSCredentials;
 	}
 
 	@Bean
-	public AmazonDynamoDBClient amazonDynamoDBClient()
-	{
-		AmazonDynamoDBClient amazonDynamoDBClient = new AmazonDynamoDBClient(
-				basicAWSCredentials());
-	
+	public AmazonDynamoDBClient amazonDynamoDBClient() {
+		AmazonDynamoDBClient amazonDynamoDBClient = new AmazonDynamoDBClient(basicAWSCredentials());
+
 		// TODO get endpoint from properties file
-		amazonDynamoDBClient
-				.setEndpoint(env.getProperty("amazon.dynamodb.endpoint"));
+		amazonDynamoDBClient.setEndpoint(env.getProperty("amazon.dynamodb.endpoint"));
 		return amazonDynamoDBClient;
 	}
 
 	@Bean
-	public DynamoDBMapper mapper()
-	{
+	public DynamoDBMapper mapper() {
 		return new DynamoDBMapper(amazonDynamoDBClient());
 	}
-	
 
 }

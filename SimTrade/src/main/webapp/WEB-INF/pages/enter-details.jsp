@@ -15,8 +15,9 @@
 function gohome(){
 
 alert("Data entered will be lost")
-window.location="http://localhost:8080/sim-details/home"
-}
+window.location="http://localhost:8080/
+	home"
+	}
 </script>
 
 <form>

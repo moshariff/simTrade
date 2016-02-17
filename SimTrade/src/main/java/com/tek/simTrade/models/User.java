@@ -6,8 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "users")
-public class User
-{
+public class User {
 	@DynamoDBRangeKey(attributeName = "empId")
 	private String empId;
 
@@ -32,7 +31,6 @@ public class User
 	@DynamoDBAttribute(attributeName = "simId")
 	private String simId;
 
-
 	public String getSimId() {
 		return simId;
 	}
@@ -41,73 +39,59 @@ public class User
 		this.simId = simId;
 	}
 
-	public String getEmpId()
-	{
+	public String getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(String empId)
-	{
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 
-	public String getPractice()
-	{
+	public String getPractice() {
 		return practice;
 	}
 
-	public void setPractice(String practice)
-	{
+	public void setPractice(String practice) {
 		this.practice = practice;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getEmpPhoneNumber()
-	{
+	public String getEmpPhoneNumber() {
 		return empPhoneNumber;
 	}
 
-	public void setEmpPhoneNumber(String empPhoneNumber)
-	{
+	public void setEmpPhoneNumber(String empPhoneNumber) {
 		this.empPhoneNumber = empPhoneNumber;
 	}
 
-	public String getEmail()
-	{
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email)
-	{
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getDateOfJoining()
-	{
+	public String getDateOfJoining() {
 		return dateOfJoining;
 	}
 
-	public void setDateOfJoining(String dateOfJoining)
-	{
+	public void setDateOfJoining(String dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
 
-	public String getTimestamp()
-	{
+	public String getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp)
-	{
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
