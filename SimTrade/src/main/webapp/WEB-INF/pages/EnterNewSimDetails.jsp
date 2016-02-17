@@ -62,7 +62,7 @@ $(function(){
 
 <h1>Sim Entry Page</h1>  
 <p>This is Sim Details page</p>  
-<form:form  commandName="sim-entity"  action="display-sim-details" onsubmit="return validateForm()" method="POST" >  
+<form:form  commandName="sim-entity"  action="display-new-sim-details" onsubmit="return validateForm()" method="POST" >  
 <TABLE cellpadding="15" border="1" bgcolor="yellow"> 
  
    <tr>  

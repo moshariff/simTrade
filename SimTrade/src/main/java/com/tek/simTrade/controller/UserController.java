@@ -38,14 +38,14 @@ public class UserController {
 		return "true";
 	}
 
-	@RequestMapping(value = "/book-a-sim", method = RequestMethod.GET)
+	@RequestMapping(value = "/enter-user-details", method = RequestMethod.GET)
 	@ResponseBody
 
 	public ModelAndView UserPerson() {
 
 		User sim = new User();
 
-		return new ModelAndView("SimBook", "user-entity", sim);
+		return new ModelAndView("EnterUserDetails", "user-entity", sim);
 
 	}
 
@@ -53,11 +53,11 @@ public class UserController {
 	private String currentUserPractice;
 	private String currentUserId;
 
-	@RequestMapping(value = "/user-country", method = RequestMethod.POST)
+	@RequestMapping(value = "/enter-country", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView countryUser(@ModelAttribute User userDetails) {
 
-		ModelAndView mav = new ModelAndView("countrydropdown");
+		ModelAndView mav = new ModelAndView("ChooseCountry");
 
 		Map<String, String> countries = new HashMap<String, String>();
 		countries.put("US", "US");
@@ -74,27 +74,9 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/result", method = RequestMethod.POST)
-	public Object env(HttpServletRequest request) {
+	
 
-		String s3 = request.getParameter("env");
-
-		String[] country = s3.split("_");
-
-		SimDetails use = mapper.load(SimDetails.class, country[1], country[0]);
-
-		use.setCurrentStatus("passive");
-		use.setCurrentUser(currentUser);
-		mapper.save(use);
-
-		User simUse = mapper.load(User.class, currentUserPractice, currentUserId);
-		simUse.setSimId(use.getSimId());
-		mapper.save(simUse);
-		return new ModelAndView("booked", "envselection", use);
-
-	}
-
-	@RequestMapping(value = "/display-table", method = RequestMethod.POST)
+	@RequestMapping(value = "/display-sims", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView hello(@ModelAttribute SimDetails simfulldetails) {
 		List<SimDetails> lsim = simDetailsService.displayDetails(simfulldetails.getCountry());
@@ -116,6 +98,25 @@ public class UserController {
 			str.put("timestamp", lsim.get(i).getTimestamp());
 			lofmap.add(str);
 		}
-		return new ModelAndView("hello", "simDetails", lofmap);
+		return new ModelAndView("DisplaySims", "simDetails", lofmap);
+	}
+	@RequestMapping(value = "/booked", method = RequestMethod.POST)
+	public Object env(HttpServletRequest request) {
+
+		String s3 = request.getParameter("env");
+
+		String[] country = s3.split("_");
+
+		SimDetails use = mapper.load(SimDetails.class, country[1], country[0]);
+
+		use.setCurrentStatus("passive");
+		use.setCurrentUser(currentUser);
+		mapper.save(use);
+
+		User simUse = mapper.load(User.class, currentUserPractice, currentUserId);
+		simUse.setSimId(use.getSimId());
+		mapper.save(simUse);
+		return new ModelAndView("booked", "envselection", use);
+
 	}
 }

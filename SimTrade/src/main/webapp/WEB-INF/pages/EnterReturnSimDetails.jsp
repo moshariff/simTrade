@@ -44,7 +44,7 @@
 <body>
 	<h1>Enter Details</h1>
 	<p>Returning user information</p>
-	<form:form commandName="user-returning" action="user-details"
+	<form:form commandName="user-returning" action="deposited"
 		onsubmit="return checkForm()" method="POST">
 		<TABLE cellpadding="15" border="1">
 

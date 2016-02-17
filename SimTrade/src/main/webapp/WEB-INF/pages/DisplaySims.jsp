@@ -30,7 +30,7 @@
 	<h1>Sim Details</h1>
 
 
-	<form id="envselection" action="result" method="post"
+	<form id="envselection" action="booked" method="post"
 		onsubmit="submitForm()">
 		<table border="2">
 

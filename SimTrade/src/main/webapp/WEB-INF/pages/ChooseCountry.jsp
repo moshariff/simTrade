@@ -28,7 +28,7 @@
 	<h1>Country page</h1>
 	<p>This is Country page</p>
 	<form:form method="POST" commandName="simdetails-entity"
-		action="display-table">
+		action="display-sims">
 		<table>
 			<tr>
 

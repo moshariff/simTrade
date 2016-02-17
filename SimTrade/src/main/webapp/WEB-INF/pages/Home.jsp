@@ -15,17 +15,17 @@
 		<h3 style="background-color: cyan;">Choose an action</h3>
 		<TABLE>
 			<tr>
-				<td><a href="http://localhost:8080/user/book-a-sim"
+				<td><a href="http://localhost:8080/user/enter-user-details"
 					style="color: red; background-color: silver; font-family: fantasy; font-style: italic;"><h2>Book
 							a Sim</h2></a></td>
 			</tr>
 			<tr>
-				<td><a href="http://localhost:8080/sim-details/sim-form"
+				<td><a href="http://localhost:8080/sim-details/enter-new-sim-details"
 					style="color: red; background-color: silver; font-family: fantasy; font-style: italic;"><h2>Deposit
 							a Sim</h2></a></td>
 			</tr>
 			<tr>
-				<td><a href="http://localhost:8080/sim-details/return-a-sim"
+				<td><a href="http://localhost:8080/sim-details/enter-return-sim-details"
 					style="color: red; background-color: silver; font-family: fantasy; font-style: italic;"><h2>Return
 							a Sim</h2></a></td>
 			</tr>

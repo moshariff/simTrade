@@ -52,7 +52,7 @@
 
 	<h1>Enter user details</h1>
 	<p>user information</p>
-	<form:form commandName="user-entity" action="user-country"
+	<form:form commandName="user-entity" action="enter-country"
 		onsubmit="return validateForm()" method="POST">
 		<TABLE cellpadding="15" border="1" bgcolor="pink">
 

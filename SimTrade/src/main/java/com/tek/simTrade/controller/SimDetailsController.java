@@ -32,10 +32,10 @@ public class SimDetailsController {
 		return "true";
 	}
 
-	@RequestMapping(value = "/sim-form", method = RequestMethod.GET)
+	@RequestMapping(value = "/enter-new-sim-details", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView personPage() {
-		ModelAndView mav = new ModelAndView("enter-details");
+		ModelAndView mav = new ModelAndView("EnterNewSimDetails");
 
 		Map<String, String> countries = new HashMap<String, String>();
 		countries.put("US", "US");
@@ -49,14 +49,14 @@ public class SimDetailsController {
 
 	}
 
-	@RequestMapping(value = "/return-a-sim", method = RequestMethod.GET)
+	@RequestMapping(value = "/enter-return-sim-details", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView ret() {
-		return new ModelAndView("returnSim", "user-returning", new SimDetails());
+		return new ModelAndView("EnterReturnSimDetails", "user-returning", new SimDetails());
 
 	}
 
-	@RequestMapping(value = "/display-sim-details", method = RequestMethod.POST)
+	@RequestMapping(value = "/display-new-sim-details", method = RequestMethod.POST)
 	public ModelAndView processPerson(@ModelAttribute SimDetails simfulldetails) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("display-details");
@@ -67,10 +67,10 @@ public class SimDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/user-details", method = RequestMethod.POST)
+	@RequestMapping(value = "/deposited", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView UserReturning(@ModelAttribute SimDetails userReturnDetails) {
-		ModelAndView modelAndView = new ModelAndView("reactivate-sim");
+		ModelAndView modelAndView = new ModelAndView("ReactivateSim");
 
 		modelAndView.addObject("sim", userReturnDetails);
 
