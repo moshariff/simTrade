@@ -54,7 +54,7 @@
 	<p>user information</p>
 	<form:form commandName="user-entity" action="enter-country"
 		onsubmit="return validateForm()" method="POST">
-		<TABLE cellpadding="15" border="1" bgcolor="pink">
+		<TABLE cellpadding="15" border="1" >
 
 			<tr>
 				<td><form:label path="empId">EmployeeId*:</form:label></td>
@@ -92,8 +92,7 @@
 
 			<tr>
 				<td colspan="2"><input type="submit" value="Submit"></td>
-				<td></td>
-				<td></td>
+				
 			</tr>
 		</table>
 	</form:form>
