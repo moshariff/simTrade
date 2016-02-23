@@ -10,7 +10,7 @@
 <title>Simcard</title>
 
 </head>
-<body>
+<body bgcolor="AntiqueWhite">
 	<h1 style="color: aqua;">WELCOME TO SIM CARD APPLICATION</h1>
 	<br>
  

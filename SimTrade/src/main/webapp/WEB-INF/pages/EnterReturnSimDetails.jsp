@@ -41,7 +41,7 @@
 		return true;
 	}
 </script>
-<body>
+<body bgcolor="beige">
 	<h1>Enter Details</h1>
 	<p>Returning user information</p>
 	<form:form commandName="user-returning" action="deposited"
