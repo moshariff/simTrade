@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tek.simTrade.service.AppService;
 
+
 @RestController
 @RequestMapping()
 public class AppController {
@@ -29,6 +30,13 @@ public class AppController {
 	@ResponseBody
 	public ModelAndView homes() {
 		return new ModelAndView("Home");
+	}
+	@RequestMapping(value="/htmls", method= RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView getHtml()
+	{
+		//return new FilePathResult("path_and_file.html", "text/html");
+		return new ModelAndView("htmltest");
 	}
 
 }

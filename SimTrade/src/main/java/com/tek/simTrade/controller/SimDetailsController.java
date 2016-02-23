@@ -36,37 +36,31 @@ public class SimDetailsController {
 	@ResponseBody
 	public ModelAndView personPage() {
 		ModelAndView mav = new ModelAndView("EnterNewSimDetails");
-
-		Map<String, String> countries = new HashMap<String, String>();
-		countries.put("US", "US");
-		countries.put("India", "INDIA");
-		countries.put("Canada", "CANADA");
-
-		mav.addObject("countriesMap", countries);
+		mav.addObject("countriesMap", simDetailsService.getCountriesList());
 		mav.addObject("sim-entity", new SimDetails());
 
 		return mav;
 
 	}
-
-	@RequestMapping(value = "/enter-return-sim-details", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView ret() {
-		return new ModelAndView("EnterReturnSimDetails", "user-returning", new SimDetails());
-
-	}
-
 	@RequestMapping(value = "/display-new-sim-details", method = RequestMethod.POST)
 	public ModelAndView processPerson(@ModelAttribute SimDetails simfulldetails) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("display-details");
 
 		modelAndView.addObject("sim", simfulldetails);
-		mapper.save(simfulldetails);
+		simDetailsService.saveobject(simfulldetails);
 
 		return modelAndView;
 	}
 
+
+	@RequestMapping(value = "/enter-return-sim-details", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView ret() {
+		return new ModelAndView("EnterReturnSimDetails", "user-returning", new SimDetails());
+	}
+
+	
 	@RequestMapping(value = "/deposited", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView UserReturning(@ModelAttribute SimDetails userReturnDetails) {
@@ -75,6 +69,7 @@ public class SimDetailsController {
 		modelAndView.addObject("sim", userReturnDetails);
 
 		SimDetails dis = mapper.load(SimDetails.class, userReturnDetails.getCountry(), userReturnDetails.getUserName());
+		//simDetailsService.loadObject(SimDetails.class, userReturnDetails.getCountry(), userReturnDetails.getUserName());
 		dis.setCurrentStatus("active");
 		dis.setCurrentUser(null);
 

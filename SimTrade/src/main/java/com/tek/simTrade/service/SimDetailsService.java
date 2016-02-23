@@ -1,5 +1,6 @@
 package com.tek.simTrade.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,26 +43,6 @@ public class SimDetailsService
 	
 	public List<SimDetails> displayDetails(String country)
 	{
-		/*
-		sim.setUserName("suresh");
-		sim.setCountry("Canada");
-		sim.setExpiryDate("20/09/2016");
-		sim.setSimType("Prepaid");
-		
-		mapper.save(sim);*/
-		
-		//getSimDetails= mapper.load(SimDetails.class, "US", "Pratheeth" );
-		
-	/*	
-		ScanRequest scanRequest = new ScanRequest().withTableName("simDetails");
-		  ScanResult result = amazonDynamoDBClient.scan(scanRequest);
-		 Map<String,AttributeValue> e1 = 
-		       new HashMap<String, AttributeValue>();
-		  for (Map<String, AttributeValue> item : result.getItems())
-		  {
-		     e1=item;
-		  } 
-		  return e1;*/
 		
 		SimDetails dim=new SimDetails();
 		  dim.setCountry(country);
@@ -73,5 +54,23 @@ public class SimDetailsService
 		  return lsim;
 		 
 		 
+	}
+	public Map<String, String> getCountriesList()
+	{
+		Map<String, String> countries = new HashMap<String, String>();
+		countries.put("US", "US");
+		countries.put("India", "INDIA");
+		countries.put("Canada", "CANADA");
+		return countries;
+	}
+	public void saveobject(SimDetails obj )
+	{
+		mapper.save(obj);
+	}
+	
+	public SimDetails loadObject(Class<SimDetails> class1,String hashkey,String rangekey)
+	{
+		SimDetails sim=mapper.load(class1,hashkey,rangekey);
+		return sim;
 	}
 }

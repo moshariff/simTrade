@@ -4,15 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+
+
 <title>Simcard</title>
+
 </head>
 <body>
-	<h1>WELCOME TO SIM CARD APPLICATION</h1>
-	<h2>
-		<!-- p>Todays Date: <%=new java.util.Date()%></p -->
-	</h2>
+	<h1 style="color: aqua;">WELCOME TO SIM CARD APPLICATION</h1>
+	<br>
+ 
 	<form action="" method="get">
-		<h3 style="background-color: cyan;">Choose an action</h3>
+		<h3 style="color: fuchsia;">Choose an action</h3>
 		<TABLE>
 			<tr>
 				<td><a href="http://localhost:8080/user/enter-user-details"
