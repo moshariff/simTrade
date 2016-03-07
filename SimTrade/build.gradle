@@ -41,6 +41,7 @@ maven { url "http://repo.spring.io/milestone" }
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile("org.springframework:spring-web")
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.amazonaws:aws-java-sdk:1.10.50')
 	
@@ -49,6 +50,11 @@ dependencies {
 	compile('javax.servlet:jstl:1.2')
 	compile('org.apache.tiles:tiles-core:3.0.5')
 	compile('org.apache.tiles:tiles-jsp:3.0.5')
+	compile ('javax.mail:mail:1.4.7')
+	compile('javax.mail:mail:1.4')
+	compile('javax.activation:activation:1.1.1')
+	
+	compile ('javax.mail:mailapi:1.4.3')
 	
 	providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	

@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Home page</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28//angular-route.min.js"></script>
+    	<script src="/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/popup.css">
+<script src="/js/popup.js"></script>
+<style>
+#div1 {width:120px;height:120px;padding:10px;border:2px solid #aaaaaa; position:absolute; bottom: 0px; right: 0px; }
+</style>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+ //   ev.target.appendChild(document.getElementById(data));
+     alert(data);
+     div_show(data);
+}
+</script>
+
+
+
+ 
+
+ <!-- h1>Sim Trade</h1>
+ <h3 align="center" style="font-family:cursive; color: maroon;">"For people who need to communicate"</h3>
+<form action="gettable" method="post">
+<div class="admin_button_style"> 
+
+   <input id="submitbutton" type="button" value="Admin Login"  >
+   
+  </div>
+</form>
+
+ 
+  <div class="dropdown">
+  <button class="dropbtn">Select Country</button>
+  <div class="dropdown-content">
+    <a href="#">US</a>
+    <a href="#">CANADA</a>
+    <a href="#">INDIA</a>
+  </div>
+</div>
+<br><br><br><br><br><br>
+
+
+
+
+
+
+			<div class="container">
+        <div class="row">
+        <div class="col-md-3">
+           <ul>
+           <li><a href="#ShowOrders">show new page</li>
+            <li> <h3 style="position: fixed; left: 50%"><a href="#AddNewOrder"><input type="button" value="button"></a></h3></li>
+          
+            </ul>
+        </div>
+        <div class="col-md-9" style="position: fixed; left: 60%;top: 70%">
+            <div ng-view></div>
+        </div>
+        </div>
+    </div>
+
+
+<div ng-controller="myCtrl">
+{{hello.name}}
+
+<form ng-submit="sendPost()">
+    <input ng-model="newName"/>
+    <button type="submit">Send</button>
+</form>
+    
+    </div> -->
+
+
+    <title>JQVMap - World Map</title>
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.vmap.js"></script>
+    <script type="text/javascript" src="/js/jquery.vmap.world.js" charset="utf-8"></script>
+<script>
+  jQuery('#vmap').vectorMap({
+      map: 'world_en',
+      pins: { "pk" : "pin_for_pk", "ru" : "pin_for_ru", ... },
+      pinMode: 'id'
+  });
+</script>
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+      jQuery('#vmap').vectorMap({  map: 'world_en',
+    	    backgroundColor: '#a5bfdd',
+    	    borderColor: '#818181',
+    	    borderOpacity: 0.5,
+    	    borderWidth: 2,
+    	    color: '#f4f3f0',
+    	    colors:{"in":"red","us":"red","ca":"red"},
+    	    hoverOpacity: 0.5,
+    	    enableZoom: true,
+    	    hoverColor: 'black',
+    	    showLabels : true,
+    	    hoverOpacity: null,
+    	    pins: { "af" : "pin_for_pk", "ru" : "pin_for_ru"},
+    	    pinMode: 'id',
+    	    normalizeFunction: 'polynomial',
+    	    scaleColors: ['#b6d6ff', '#005ace'],
+    	    selectedColor: '#c9dfaf',
+    	    selectedRegions: [],
+    	    showTooltip: false,
+    	   
+    	    onRegionClick: function(element, code, region)
+    	    {
+    	        var message = 'You clicked "'
+    	            + region
+    	            + '" which has the code: '
+    	            + code.toUpperCase();
+    	        document.write("Uploading, PLease wait");
+    	        alert(message);
+    	    } });
+    });
+    </script>
+      
+      <script language="javascript" type="text/javascript">
+
+   var popupWindow = null;
+   function Popup(status, url) {
+       if (status != 0) {
+           if (popup != null) popup.focus();
+           else {
+               var popup = open(url, "popups", "width=500px,height=500px");
+               popupWindow = popup;
+           }
+       }
+       else {
+           if (popupWindow != null) {
+               popupWindow.close();
+           }
+       }
+   }
+
+   
+   </script>
+<script type="text/javascript">
+var text=true;
+function testload()
+{
+	if(text)
+		
+	}
+window.onload = testload;
+</script>
+  </head>
+  <body >  
+
+  <div style="display:inline; ">
+  <img id="pin_for_pk" src="/images/blue.png" />
+  <img id="pin_for_ru" src="/images/flag.png"/>
+</div>
+    <div id="vmap" style="width: 1000px; height: 800px; position: fixed;"></div>
+    
+    
+    
+    
+
+ <div id="body" style="overflow:hidden;">
+    <div id="abc">
+    <!-- Popup Div Starts Here -->
+    <div id="popupContact">
+    <!-- Contact Us Form -->
+    <form action="#" id="form" method="post" name="form">
+    <img id="close" src="images/3.png" onclick ="div_hide()">
+    <h2>Contact Us</h2>
+    <hr>
+    <input id="name" name="name" placeholder="Name" type="text">
+    <input id="email" name="email" placeholder="Email" type="text">
+    <textarea id="msg" name="message" placeholder="Message"></textarea>
+    <a href="javascript:%20check_empty()" id="submit">Send</a>
+    </form>
+    </div>
+<!-- Popup Div Ends Here -->
+</div>
+
+
+
+
+<img id="CANADA" src="/images/blue.png" draggable="true" ondragstart="drag(event)" width="50px" height="50px" style="position:fixed; left: 200px;top: 200px;">
+<img id="US" src="/images/blue.png" draggable="true" ondragstart="drag(event)" width="50px" height="50px" style="position:fixed; left: 200px;top: 300px;">
+
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"   style="position:fixed; left:80% ;top:70%; width: 200px; height: 200px;z-index: 1; ">
+<img alt="error" src="/webapp/images/download (1).png"height="100px" width="100px" style="z-index: 2;"></div>
+
+<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:fixed; left:53% ;top:38%; width: 60px; height: 75px; border-color:  transparent;"></div>
+<br>
+<img id="drag1" src="/images/blue.png" draggable="true" ondragstart="drag(event)" width="50px" height="50px" style="position:fixed; left: 1200px;top: 10px;">
+  </body>
+</html>

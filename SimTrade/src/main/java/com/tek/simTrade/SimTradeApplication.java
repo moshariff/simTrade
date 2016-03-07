@@ -11,4 +11,4 @@ public class SimTradeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SimTradeApplication.class, args);
 	}
-}
+}	

@@ -1,6 +1,8 @@
 package com.tek.simTrade.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +55,7 @@ public class UserController {
 	private String currentUserPractice;
 	private String currentUserId;
 
-	@RequestMapping(value = "/enter-country", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/enter-country", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView countryUser(@ModelAttribute User userDetails) {
 
@@ -72,17 +74,28 @@ public class UserController {
 		currentUserId = use.getEmpId();
 		return mav;
 
-	}
+	}*/
 
 	
 
-	@RequestMapping(value = "/display-sims", method = RequestMethod.POST)
+	@RequestMapping(value = "/display-sims", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView hello(@ModelAttribute SimDetails simfulldetails) {
-		List<SimDetails> lsim = simDetailsService.displayDetails(simfulldetails.getCountry());
+	public Object hello(@ModelAttribute SimDetails simfulldetails) {
+		List<SimDetails> lsim = simDetailsService.displayDetails("US");
 		ArrayList<Map<String, String>> lofmap = new ArrayList<>();
 		for (int i = 0; i < lsim.size(); i++) {
 			Map<String, String> str = new HashMap<>();
+			String s=lsim.get(i).getCurrentStatus();
+			
+	
+			String a="active";
+			if (s==null)
+			{
+				System.out.println();
+			}
+			else if(s.equals(a))
+			{
+			
 			str.put("userName", lsim.get(i).getUserName());
 			str.put("country", lsim.get(i).getCountry());
 			str.put("expiryDate", lsim.get(i).getExpiryDate());
@@ -97,8 +110,22 @@ public class UserController {
 			str.put("currentUser", lsim.get(i).getCurrentUser());
 			str.put("timestamp", lsim.get(i).getTimestamp());
 			lofmap.add(str);
-		}
-		return new ModelAndView("DisplaySims", "simDetails", lofmap);
+			}
+			
+			 }
+		Collections.sort(lofmap, new Comparator<Map<String, String>>() {
+	        public int compare(final Map<String, String> o1, final Map<String, String> o2) {
+	            return o1.get("expiryDate").compareTo(o2.get("expiryDate"));
+	        }
+	    });
+		
+		Map<String, String> maps1 = lofmap.get(0);
+		String username=maps1.get("userName");
+		String country=maps1.get("country");
+		SimDetails simUse=mapper.load(SimDetails.class, country, username);
+		simUse.setCurrentStatus("passive");
+		mapper.save(simUse);
+		return lofmap;
 	}
 	@RequestMapping(value = "/booked", method = RequestMethod.POST)
 	public Object env(HttpServletRequest request) {

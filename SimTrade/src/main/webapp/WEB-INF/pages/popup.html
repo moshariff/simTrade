@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/css/popup.css">
+<script src="/js/popup.js"></script>
+<style>
+#div1 {width:120px;height:120px;padding:10px;border:2px solid #aaaaaa; position:absolute; bottom: 0px; right: 0px; }
+</style>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+    div_show();
+}
+</script>
+</head>
+<body >
+ <div id="body" style="overflow:hidden;">
+    <div id="abc">
+    <!-- Popup Div Starts Here -->
+    <div id="popupContact">
+    <!-- Contact Us Form -->
+    <form action="#" id="form" method="post" name="form">
+    <img id="close" src="images/3.png" onclick ="div_hide()">
+    <h2>Contact Us</h2>
+    <hr>
+    <input id="name" name="name" placeholder="Name" type="text">
+    <input id="email" name="email" placeholder="Email" type="text">
+    <textarea id="msg" name="message" placeholder="Message"></textarea>
+    <a href="javascript:%20check_empty()" id="submit">Send</a>
+    </form>
+    </div>
+<!-- Popup Div Ends Here -->
+</div>
+<!-- Display Popup Button -->
+<h1>Click Button To Popup Form Using Javascript</h1>
+<button id="popup" onclick="div_show()">Popup</button>
+
+<p>Drag the W3Schools image into the rectangle:</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+<img id="drag1" src="/images/download.png" draggable="true" ondragstart="drag(event)" width="115" height="115">
+
+</body>
+</html>
