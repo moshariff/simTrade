@@ -231,6 +231,9 @@ public class SimController
 	 }
 	 String th;
 	 int l;
+	 
+	 
+	 
 	 @RequestMapping(value = "/checkAvailable", method = RequestMethod.POST)
 	 public @ResponseBody void checkAvailable(@RequestBody String obj) {
 		
@@ -285,12 +288,13 @@ public class SimController
 				System.out.println("username is:" +username);
 				if(obj.equals(username))
 				{
-					System.out.println("entered true");
+					if(Usim.get(i).getSimPhoneNumber()==null)
+					{
 					bool=true;
 					
-				}
+					}
 			}
-	  
+			}
 	 }
 	 
 	 @RequestMapping(value="/replyname", method=RequestMethod.GET)  
