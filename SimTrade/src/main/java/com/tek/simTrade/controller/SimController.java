@@ -22,8 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tek.simTrade.models.Sim;
-import com.tek.simTrade.models.SimDetails;
-import com.tek.simTrade.models.User;
+
 import com.tek.simTrade.models.UsersNew;
 import com.tek.simTrade.service.SimService;
 
@@ -42,7 +41,7 @@ public class SimController
 	@Autowired
 	private DynamoDBMapper mapper;
 	
-	SimDetails getSimDetails = new SimDetails();
+
 	
 	@RequestMapping(value = "/create-sim", method = RequestMethod.GET)
 	@ResponseBody
@@ -95,6 +94,12 @@ public class SimController
 	    	  }
 	          
 	          String projectUrl="http://localhost:8080/worldWeb";
+	          try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	          return new ModelAndView("redirect:" + projectUrl);
 	        
 	      //  return sim;
@@ -147,7 +152,12 @@ public class SimController
     	  usersNew.setSimPhoneNumber(phoneNumber);
     	  mapper.save(usersNew);
     	  
-    	 
+    	  try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
           String projectUrl="http://localhost:8080/worldWeb";
           return new ModelAndView("redirect:" + projectUrl);
 		 

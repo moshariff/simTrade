@@ -4,15 +4,12 @@ alert("Fill All Fields !");
 } else {
 document.getElementById('form').submit();
 alert("Form Submitted Successfully...");
+
 }
 }
 function checkName(ev)
 {
-
 var data = ev.target.value;
-
-
-
 	$.ajax({  
         type : "POST",   
         url : "checkName.html",   
@@ -22,22 +19,13 @@ var data = ev.target.value;
         	 $.get("http://localhost:8080/replyname", function(data, status){
         			if(data=='exists')
         		 alert("pls return ur old Sim");
-        			
-        			
-        			
         	     });
         },  
         error : function(e) {  
             
         }  
         });
-	
-
-
-
-	
-	
-	}
+		}
 function Hello(dataset) {
 	var datas;
 	
@@ -52,12 +40,14 @@ function Hello(dataset) {
 	
 }
 function check_empty1() {
+	
+
 	if (document.getElementById('userName').value == "" || document.getElementById('email').value == "" ) {
 	alert("Fill All Fields !");
 	} else {
 	document.getElementById('form1').submit();
 	
-	alert("Form Submitted Successfully... + value is data");
+	alert("Form Submitted Successfully");
 	}
 	}
 //Function To Display Popup

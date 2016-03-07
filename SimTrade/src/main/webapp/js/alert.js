@@ -34,10 +34,17 @@ function createCustomAlert(txt) {
 	btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT));
 	btn.href = "#";
 	btn.focus();
-	btn.onclick = function() {  location.reload();  }
+	btn.onclick = function() {  location.reload();removeCustomAlert();return false;  }
 
 	alertObj.style.display = "block";
 	
 }
 
+function removeCustomAlert() {
+	document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
+	
+}
+function ful(){
+alert('No sim available');
+}
 
