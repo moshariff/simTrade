@@ -10,7 +10,9 @@ function check_empty() {
 	}
 }
 function checkName(ev) {
+	
 	var data = ev.target.value;
+
 	$.ajax({
 		type : "POST",
 		url : "checkName.html",
@@ -20,6 +22,7 @@ function checkName(ev) {
 			$.get("http://localhost:8080/replyname", function(data, status) {
 				if (data == 'exists')
 					alert("pls return ur old Sim");
+			
 			});
 		},
 		error : function(e) {

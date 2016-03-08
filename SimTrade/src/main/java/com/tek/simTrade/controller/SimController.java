@@ -31,34 +31,34 @@ import com.tek.simTrade.service.SimService;
 
 public class SimController {
 
-	/*
-	 * Service class
-	 */
+	
+	 // Service class
+	 
 	@Autowired
 	private SimService simService;
 
-	/*
-	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
-	 * access to a DynamoDB endpoint and enables you to access your data in
-	 * various tables, perform various CRUD operations on items, and execute
-	 * queries and scans against tables.
+	
+	 /* The DynamoDBMapper class is the entry point to DynamoDB. It provides
+	  access to a DynamoDB endpoint and enables you to access your data in
+	  various tables, perform various CRUD operations on items, and execute
+	  queries and scans against tables.
 	 */
 	@Autowired
 	private DynamoDBMapper mapper;
 
 	/*
-	 * Creates the table Models/Sim
-	 */
+	 //Creates the table Models/Sim
+	 
 	@RequestMapping(value = "/create-sim", method = RequestMethod.GET)
 	@ResponseBody
 	String createSimTrade() {
 		simService.createSimTradeTable();
 		return "Sim Table Created";
-	}
+	}*/
 
-	/*
-	 * Fires up the home page or the only page in our application
-	 */
+/*	
+	 // Fires up the home page or the only page in our application
+	 
 	@RequestMapping(value = "/worldWeb", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView worldWeb() {
@@ -69,13 +69,13 @@ public class SimController {
 		return mav;
 	}
 
-	/*
+	
 	 * This controller mapping is fired when the user adds a sim into the
 	 * application. It verifies if the sim already exists by comparing the
 	 * incoming sims phone number with the existing record of sim's phone
 	 * numbers, if it exists, It sets the particular users phone number field to
 	 * null indicating that he returned the sim
-	 */
+	 
 	@RequestMapping(value = "/display-sim-details", method = RequestMethod.POST)
 	public Object env(HttpServletRequest request, @ModelAttribute Sim sim) {
 
@@ -102,16 +102,17 @@ public class SimController {
 			}
 		}
 		// return home page
+		
 		return new ModelAndView("newWorldWeb");
 	}
 
-	/*
+	
 	 * This Controller mapping is called when the user books a Sim. The input to
 	 * this controller is the model/user object that the user inputs through a
 	 * form and returns the home page. It assigns the user a sim of the country
 	 * he selected, which has the earliest expiryDate It also assigns the
 	 * UserName to the sim object, indicating booked
-	 */
+	 
 	@RequestMapping(value = "/display-user-details", method = RequestMethod.POST)
 	public Object env1(HttpServletRequest request, @ModelAttribute UsersNew usersNew, @RequestParam String country) {
 		// call to service class to scan the Sim table and return list of
@@ -171,17 +172,17 @@ public class SimController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return new ModelAndView("newWorldWeb");
+		String url="http://localhost:8080/worldWeb";
+		return new ModelAndView("redirect:" +url);
 	}
 
 	// global counter for communication between controllers
 	int counter;
 
-	/*
+	
 	 * This controller mapping checks if sims are available by the country
 	 * passed
-	 */
+	 
 	@RequestMapping(value = "/checkAvailable", method = RequestMethod.POST)
 	public @ResponseBody void checkAvailable(@RequestBody String country) {
 
@@ -206,10 +207,10 @@ public class SimController {
 		counter = count;
 	}
 
-	/*
+	
 	 * This controller returns to the front End if Sims are available or not
 	 * depending on the count in previous mapping
-	 */
+	 
 	@RequestMapping(value = "/replyavailable", method = RequestMethod.GET)
 	@ResponseBody
 	public String replyAvailable() {
@@ -223,13 +224,13 @@ public class SimController {
 	// Boolean variable true if the user exists and false if not
 	boolean userExist = false;
 
-	/*
+	
 	 * This controller checks when the user is booking a sim, if he already has
 	 * booked before if he has then returns true
-	 */
+	 
 	@RequestMapping(value = "/checkName", method = RequestMethod.POST)
 	public @ResponseBody void checkName(@RequestBody String name) {
-
+		
 		name = name.substring(0, name.length() - 1);
 		name = name.replace('+', ' ');
 		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
@@ -240,16 +241,16 @@ public class SimController {
 			String username = lUser.get(i).getUserName();
 			// if user name exists
 			if (name.equals(username)) {
-				if (lUser.get(i).getSimPhoneNumber() == null) {
+				if (lUser.get(i).getSimPhoneNumber() != null) {
 					userExist = true;
 				}
 			}
 		}
 	}
 
-	/*
+	
 	 * This controller mapping communicates to front end if user already exists
-	 */
+	 
 	@RequestMapping(value = "/replyname", method = RequestMethod.GET)
 	@ResponseBody
 	public String replyname() {
@@ -262,68 +263,95 @@ public class SimController {
 			return "goAhead";
 		}
 	}
+
+*/
+
+ // Testing Purpose
+  
+  @RequestMapping(value = "/display-sim-object", method = RequestMethod.GET)
+  public Object scan() {
+  
+  DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+  
+  List<Sim> sim = mapper.scan(Sim.class, scanExpression); return sim; }
+ 
+
+
+
+
+
+ // Testing Purpose
+  
+  @RequestMapping(value = "/display-user-object", method = RequestMethod.GET)
+  public Object scan1() {
+  
+  DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+  
+  List<UsersNew> usersNew = mapper.scan(UsersNew.class, scanExpression); return
+  usersNew; }
+ 
+
+
+
+
+
+ // Testing Purpose
+  
+  @RequestMapping(value = "/display-sims-US", method = RequestMethod.GET)
+  
+  @ResponseBody public Object displayUs(@ModelAttribute Sim simfulldetails) {
+  List<Sim> lsim = simService.displayDetails("US"); ArrayList<Map<String,
+  String>> lofmap = new ArrayList<>(); 
+  
+  for (int i = 0; i < lsim.size(); i++) {
+  Map<String, String> str = new HashMap<>(); String s =
+  lsim.get(i).getCurrentStatus();
+  
+  String a = "active"; if (s == null) { System.out.println(); } else if
+  (s.equals(a)) {
+  
+  str.put("country", lsim.get(i).getCountry()); str.put("expiryDate",
+  lsim.get(i).getExpiryDate()); str.put("simType", lsim.get(i).getSimType());
+  str.put("phoneNumber", lsim.get(i).getPhoneNumber()); str.put("plan",
+  lsim.get(i).getPlan()); str.put("currentStatus",
+  lsim.get(i).getCurrentStatus()); str.put("currentUser",
+  lsim.get(i).getCurrentUser()); str.put("timestamp",
+  lsim.get(i).getTimestamp()); lofmap.add(str); }
+  
+  } Collections.sort(lofmap, new Comparator<Map<String, String>>() { public int
+  compare(final Map<String, String> o1, final Map<String, String> o2) { return
+  o1.get("expiryDate").compareTo(o2.get("expiryDate")); } });
+  
+
+  
+  return lofmap; }
+  
+@RequestMapping(value = "/display-sims-canada", method = RequestMethod.GET)
+  
+  @ResponseBody public Object displaySimCanada(@ModelAttribute Sim simfulldetails) {
+  List<Sim> lsim = simService.displayDetails("CANADA"); ArrayList<Map<String,
+  String>> lofmap = new ArrayList<>(); 
+  
+  for (int i = 0; i < lsim.size(); i++) {
+  Map<String, String> str = new HashMap<>(); String s =
+  lsim.get(i).getCurrentStatus();
+  
+  String a = "active"; if (s == null) { System.out.println(); } else if
+  (s.equals(a)) {
+  
+  str.put("country", lsim.get(i).getCountry()); str.put("expiryDate",
+  lsim.get(i).getExpiryDate()); str.put("simType", lsim.get(i).getSimType());
+  str.put("phoneNumber", lsim.get(i).getPhoneNumber()); str.put("plan",
+  lsim.get(i).getPlan()); str.put("currentStatus",
+  lsim.get(i).getCurrentStatus()); str.put("currentUser",
+  lsim.get(i).getCurrentUser()); str.put("timestamp",
+  lsim.get(i).getTimestamp()); lofmap.add(str); }
+  
+  } Collections.sort(lofmap, new Comparator<Map<String, String>>() { public int
+  compare(final Map<String, String> o1, final Map<String, String> o2) { return
+  o1.get("expiryDate").compareTo(o2.get("expiryDate")); } });
+  
+
+  return lofmap; }
+ 
 }
-
-/*
- * Testing Purpose
- * 
- * @RequestMapping(value = "/display-sim-object", method = RequestMethod.GET)
- * public Object scan() {
- * 
- * DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
- * 
- * List<Sim> sim = mapper.scan(Sim.class, scanExpression); return sim; }
- */
-
-
-
-
-/*
- * Testing Purpose
- * 
- * @RequestMapping(value = "/display-user-object", method = RequestMethod.GET)
- * public Object scan1() {
- * 
- * DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
- * 
- * List<UsersNew> usersNew = mapper.scan(UsersNew.class, scanExpression); return
- * usersNew; }
- */
-
-
-
-
-/*
- * Testing Purpose
- * 
- * @RequestMapping(value = "/display-sims", method = RequestMethod.GET)
- * 
- * @ResponseBody public Object hello(@ModelAttribute Sim simfulldetails) {
- * List<Sim> lsim = simService.displayDetails("CANADA"); ArrayList<Map<String,
- * String>> lofmap = new ArrayList<>(); for (int i = 0; i < lsim.size(); i++) {
- * Map<String, String> str = new HashMap<>(); String s =
- * lsim.get(i).getCurrentStatus();
- * 
- * String a = "active"; if (s == null) { System.out.println(); } else if
- * (s.equals(a)) {
- * 
- * str.put("country", lsim.get(i).getCountry()); str.put("expiryDate",
- * lsim.get(i).getExpiryDate()); str.put("simType", lsim.get(i).getSimType());
- * str.put("phoneNumber", lsim.get(i).getPhoneNumber()); str.put("plan",
- * lsim.get(i).getPlan()); str.put("currentStatus",
- * lsim.get(i).getCurrentStatus()); str.put("currentUser",
- * lsim.get(i).getCurrentUser()); str.put("timestamp",
- * lsim.get(i).getTimestamp()); lofmap.add(str); }
- * 
- * } Collections.sort(lofmap, new Comparator<Map<String, String>>() { public int
- * compare(final Map<String, String> o1, final Map<String, String> o2) { return
- * o1.get("expiryDate").compareTo(o2.get("expiryDate")); } });
- * 
- * 
- * Map<String, String> maps1 = lofmap.get(0); String
- * phoneNumber=maps1.get("phoneNumber"); String country=maps1.get("country");
- * Sim simUse=mapper.load(Sim.class, country, phoneNumber);
- * simUse.setCurrentStatus("passive"); mapper.save(simUse);
- * 
- * return lofmap; }
- */

@@ -22,7 +22,9 @@ public class UsersNewService
 
 	@Autowired
 	private AmazonDynamoDBClient amazonDynamoDBClient;
-
+/*
+ * create a model/Users table
+ */
 	public void createUserTable()
 	{
 

@@ -17,15 +17,24 @@ import com.tek.simTrade.models.Sim;
 @Service
 public class SimService
 {
+	/*
+	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
+	 * access to a DynamoDB endpoint and enables you to access your data in
+	 * various tables, perform various CRUD operations on items, and execute
+	 * queries and scans against tables.
+	 */
 	@Autowired
 	private DynamoDBMapper mapper;
 
 	@Autowired
 	 private AmazonDynamoDBClient amazonDynamoDBClient;
 	
-
+//model/Sim object
 	Sim sim = new Sim();
 	
+	/*
+	 * creates a sim object
+	 */
 	public void createSimTradeTable()
 	{
 
@@ -38,7 +47,9 @@ public class SimService
 		// Fire off the CreateTableRequest using the low-level client
 		amazonDynamoDBClient.createTable(createTableRequest);
 	}
-	
+	/*
+	 * Scans the model/Sim table to return list of sims.
+	 */
 	public List<Sim> displayDetails(String country)
 	 {
 	  
@@ -54,15 +65,7 @@ public class SimService
 	   
 	 }
 	
-	public Map<String, String> countryList()
-	{
-		 Map< String, String > countries = new HashMap<String, String>();  
-	        countries.put("US", "US");  
-	        countries.put("India", "INDIA");  
-	        countries.put("Canada", "CANADA");  
-	        
-	        return countries;
-	}
+	
 	
 	
 }
