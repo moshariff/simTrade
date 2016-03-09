@@ -9,6 +9,43 @@ function check_empty() {
 
 	}
 }
+/*This function is called after a sim is dropped */
+function drop(ev) {
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+
+	ev.target.appendChild(document.getElementById(data));
+	div_show();
+}
+function drop1(ev) {
+	ev.preventDefault();
+	var dataset = ev.dataTransfer.getData("text");
+
+	Hello(dataset);
+
+}
+/*Drop function ends here */
+function allowDrop(ev) {
+	ev.preventDefault();
+}
+/*This function is called when a sim is dragged from it's original position*/
+function drag(ev) {
+	ev.dataTransfer.setData("text", ev.target.id);
+	var data = ev.dataTransfer.getData("text");
+
+	$.ajax({
+		type : "POST",
+		url : "checkAvailable.html",
+		data : data,
+		success : function(response) {
+
+		},
+		error : function(e) {
+
+		}
+	});
+}
+/*Drag function ends here */
 function checkName(ev) {
 	
 	var data = ev.target.value;
@@ -58,22 +95,22 @@ function check_empty1() {
 }
 //Function To Display Popup to add a new sim 
 function div_show() {
-	document.getElementById('abc').style.display = "block";
+	document.getElementById('depositSim').style.display = "block";
 }
 //Function To Display Popup to book a sim 
 function div_show1(data) {
 
 	document.getElementById('country').value = data;
 
-	document.getElementById('abc1').style.display = "block";
+	document.getElementById('bookSim').style.display = "block";
 
 }
 
 //Function to Hide add a new sim Popup
 function div_hide() {
-	document.getElementById('abc').style.display = "none";
+	document.getElementById('depositSim').style.display = "none";
 }
 //Function to Hide book a sim Popup
 function div_hide1() {
-	document.getElementById('abc1').style.display = "none";
+	document.getElementById('bookSim').style.display = "none";
 }

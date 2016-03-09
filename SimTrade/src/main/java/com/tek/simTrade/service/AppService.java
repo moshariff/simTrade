@@ -12,16 +12,13 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.support.ResourcePropertySource;
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-
 @Service
 public class AppService
 {
 	@Autowired
 	private Environment env;
 
-	@Autowired
-	private DynamoDBMapper mapper;
+
 
 	@SuppressWarnings("rawtypes")
 	public String getPropertyFileAndProperties()
