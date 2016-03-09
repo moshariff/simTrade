@@ -22,21 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tek.simTrade.models.Sim;
-
 import com.tek.simTrade.models.UsersNew;
+import com.tek.simTrade.service.AppService;
 import com.tek.simTrade.service.SimService;
-
 @RestController
 @RequestMapping(value = "/")
 
-public class SimController {
+public class bookSim {
 
-	/*
-	 * Service class
-	 */
-	@Autowired
-	private SimService simService;
-
+	
 	/*
 	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
 	 * access to a DynamoDB endpoint and enables you to access your data in
@@ -46,6 +40,11 @@ public class SimController {
 	@Autowired
 	private DynamoDBMapper mapper;
 
+	@Autowired
+	private SimService simService;
+
+	@Autowired
+	private AppService appService;
 	/*
 	 * Creates the table Models/Sim
 	 */
@@ -70,6 +69,7 @@ public class SimController {
 	}
 
 	/*
+<<<<<<< HEAD:SimTrade/src/main/java/com/tek/simTrade/controller/SimController.java
 	 * This controller mapping is fired when the user adds a sim into the
 	 * application. It verifies if the sim already exists by comparing the
 	 * incoming sims phone number with the existing record of sim's phone
@@ -106,6 +106,8 @@ public class SimController {
 	}
 
 	/*
+=======
+>>>>>>> 5e9c40888008f42507ff8dcb18ba66430d9b3bf9:SimTrade/src/main/java/com/tek/simTrade/controller/bookSim.java
 	 * This Controller mapping is called when the user books a Sim. The input to
 	 * this controller is the model/user object that the user inputs through a
 	 * form and returns the home page. It assigns the user a sim of the country
@@ -164,15 +166,14 @@ public class SimController {
 		usersNew.setSimPhoneNumber(phoneNumber);
 		// save the user
 		mapper.save(usersNew);
+		String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
+		  
+		appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
+		  
+		    
 
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return new ModelAndView("newWorldWeb");
+		String url = "http://localhost:8080/worldWeb";
+		return new ModelAndView("redirect:" + url);
 	}
 
 	// global counter for communication between controllers
@@ -219,8 +220,10 @@ public class SimController {
 		else
 			return "available";
 	}
-
+	
+	
 	// Boolean variable true if the user exists and false if not
+<<<<<<< HEAD:SimTrade/src/main/java/com/tek/simTrade/controller/SimController.java
 	boolean userExist = false;
 
 	/*
@@ -246,9 +249,36 @@ public class SimController {
 					System.out.println(lUser.get(i).getSimPhoneNumber());
 					System.out.println(lUser.get(i).getUserName());
 					userExist = true;
+=======
+			boolean userExist = false;
+
+			/*
+			 * This controller checks when the user is booking a sim, if he already has
+			 * booked before if he has then returns true
+			 */
+			@RequestMapping(value = "/checkName", method = RequestMethod.POST)
+			public @ResponseBody void checkName(@RequestBody String name) {
+				
+				name = name.substring(0, name.length() - 1);
+				name = name.replace('+', ' ');
+				DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+				// scans user table to return list of users(lUser)
+				List<UsersNew> lUser = mapper.scan(UsersNew.class, scanExpression);
+				// loop through users
+				for (int i = 0; i < lUser.size(); i++) {
+					String username = lUser.get(i).getUserName();
+					// if user name exists
+					if (name.equals(username)) {
+						String nullvalue=lUser.get(i).getSimPhoneNumber();
+						if (nullvalue != null) {
+							userExist = true;
+						}
+						}
+>>>>>>> 5e9c40888008f42507ff8dcb18ba66430d9b3bf9:SimTrade/src/main/java/com/tek/simTrade/controller/bookSim.java
 				}
 				
 			}
+<<<<<<< HEAD:SimTrade/src/main/java/com/tek/simTrade/controller/SimController.java
 			
 		}
 
@@ -336,3 +366,24 @@ return
   
   return lofmap; }
   }
+=======
+
+			/*
+			 * This controller mapping communicates to front end if user already exists
+			 */
+			@RequestMapping(value = "/replyname", method = RequestMethod.GET)
+			@ResponseBody
+			public String replyname() {
+
+				if (userExist == true) {
+					userExist = false;
+					return "exists";
+
+				} else {
+					return "goAhead";
+				}
+			}
+
+
+}
+>>>>>>> 5e9c40888008f42507ff8dcb18ba66430d9b3bf9:SimTrade/src/main/java/com/tek/simTrade/controller/bookSim.java

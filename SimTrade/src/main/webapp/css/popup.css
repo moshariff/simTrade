@@ -99,7 +99,7 @@
 /*----------------------------------------------
 CSS settings for HTML div Exact Center
 ------------------------------------------------*/
-#abc {
+#depositSim {
 	z-index: 3;
 width:100%;
 height:100%;
@@ -111,7 +111,7 @@ position:fixed;
 background-color:#313131;
 overflow:auto
 }
-#abc1 {
+#bookSim {
 	z-index: 3;
 width:100%;
 height:100%;

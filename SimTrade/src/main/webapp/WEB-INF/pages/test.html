@@ -1,32 +1,3 @@
-<!-- <!doctype html>
-<html data-ng-app="formSubmit">
-	<head>
-		<title>Hello AngularJS</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    	<script src="/js/test.js"></script>
-	</head>
-
-	<body>
-		<div ng-controller="Hello">
-			<p>The ID is {{greeting}}</p>
-			<p>The content is {{greeting}}</p>
-		</div>
-		
-		
-		<form data-ng-submit="submit()" data-ng-controller="FormSubmitController">
-  <h3>{{headerText}}</h3>
-  <p>Full Name: <input type="text" data-ng-model="FullName"></p>
-  <p>City: <input type="text" data-ng-model="City"></p>
-  <p>Zip: <input type="text" data-ng-model="Zip"></p>
-  <input type="submit" id="submit" value="Submit" /><br> 
-  
-  
-  <h4>You submitted below data through post:</h4>
-   <pre>Data ={{list}}</pre>
-</form>
-		
-	</body>
-</html> -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +5,8 @@
 <script>
 $(document).ready(function(){
     $("button").click(function(){
-        $.get("http://localhost:8080/fest", function(data, status){
+    	var data="hello";
+        $.post("testpost","hello",function(data,status){
             alert("Data: " + data + "\nStatus: " + status);
         });
     });
@@ -43,7 +15,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-<button>Send an HTTP GET request to a page and get the result back</button>
+<button>Send an HTTP POST request to a page and get the result back</button>
 
 </body>
 </html>

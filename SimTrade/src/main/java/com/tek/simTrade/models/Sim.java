@@ -12,15 +12,22 @@ public class Sim
 {
 
 	
-
+	/*
+	 * @DynamoDBHashkey
+	 */
 	@DynamoDBHashKey(attributeName = "country")
 	private String country;
 
-//	@DynamoDBIndexRangeKey(attributeName = "expiryDate", globalSecondaryIndexName="expiryDate", localSecondaryIndexName = "sort_by_expiryDate")
+	/*
+	 * @DynamoDBIndexRangeKey
+	 */
 	@DynamoDBRangeKey(attributeName = "phoneNumber")
 	@NotNull
 	private String phoneNumber;
 	
+	/*
+	 * @DynamoDbAttribute(simType)
+	 */
 	@DynamoDBAttribute(attributeName = "simType")
 	private String simType;
 
