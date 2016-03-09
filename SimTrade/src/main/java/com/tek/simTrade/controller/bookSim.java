@@ -23,6 +23,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tek.simTrade.models.Sim;
 import com.tek.simTrade.models.UsersNew;
+import com.tek.simTrade.service.AppService;
 import com.tek.simTrade.service.SimService;
 @RestController
 @RequestMapping(value = "/")
@@ -42,6 +43,8 @@ public class bookSim {
 	@Autowired
 	private SimService simService;
 
+	@Autowired
+	private AppService appService;
 	/*
 	 * Creates the table Models/Sim
 	 */
@@ -124,13 +127,12 @@ public class bookSim {
 		usersNew.setSimPhoneNumber(phoneNumber);
 		// save the user
 		mapper.save(usersNew);
+		String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
+		  
+		appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
+		  
+		    
 
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		String url = "http://localhost:8080/worldWeb";
 		return new ModelAndView("redirect:" + url);
 	}

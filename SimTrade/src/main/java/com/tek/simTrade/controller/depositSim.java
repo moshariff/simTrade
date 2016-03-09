@@ -16,7 +16,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tek.simTrade.models.Sim;
 import com.tek.simTrade.models.UsersNew;
-
+import com.tek.simTrade.service.AppService;
 import com.tek.simTrade.service.UsersNewService;
 @RestController
 @RequestMapping(value="/")
@@ -27,6 +27,9 @@ public class depositSim {
 	 */
 	@Autowired
 	private UsersNewService usersService;
+	
+	@Autowired
+	private AppService appService;
 	
 	/*
 	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
@@ -73,18 +76,19 @@ public class depositSim {
 			}
 			// if both numbers match, the sim is being returned
 			else if (userPhoneNumber.equals(simPhoneNumber)) {
+				
+				String text="THANK YOU FOR RETURNING THE SIM \n"
+						+"Sim Phone Number: "+ sim.getPhoneNumber() +"\n Sim Type: "+ sim.getSimType()
+						 +"\n Country is: "+sim.getCountry();
+				appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED", text);
 				// free the user's phoneNumber field indicating he returned
 				lusers.get(i).setSimPhoneNumber(null);
 				// save the changes
 				mapper.save(lusers.get(i));
 			}
 		}
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
 		
 		String url="http://localhost:8080/worldWeb";
 		return new ModelAndView("redirect:" +url);
