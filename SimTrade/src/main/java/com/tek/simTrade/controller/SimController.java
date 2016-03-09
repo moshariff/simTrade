@@ -96,7 +96,7 @@ public class SimController {
 			// if both numbers match, the sim is being returned
 			else if (userPhoneNumber.equals(simPhoneNumber)) {
 				// free the user's phoneNumber field indicating he returned
-				lusers.get(i).setSimPhoneNumber("null");
+				lusers.get(i).setSimPhoneNumber("");
 				// save the changes
 				mapper.save(lusers.get(i));
 			}
@@ -229,7 +229,7 @@ public class SimController {
 	 */
 	@RequestMapping(value = "/checkName", method = RequestMethod.POST)
 	public @ResponseBody void checkName(@RequestBody String name) {
-
+		
 		name = name.substring(0, name.length() - 1);
 		name = name.replace('+', ' ');
 		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
@@ -238,13 +238,20 @@ public class SimController {
 		// loop through users
 		for (int i = 0; i < lUser.size(); i++) {
 			String username = lUser.get(i).getUserName();
-			// if user name exists
+			
 			if (name.equals(username)) {
-				if (lUser.get(i).getSimPhoneNumber() == null) {
+				
+				
+				if (lUser.get(i).getSimPhoneNumber() != null) {
+					System.out.println(lUser.get(i).getSimPhoneNumber());
+					System.out.println(lUser.get(i).getUserName());
 					userExist = true;
 				}
+				
 			}
+			
 		}
+
 	}
 
 	/*
@@ -253,7 +260,7 @@ public class SimController {
 	@RequestMapping(value = "/replyname", method = RequestMethod.GET)
 	@ResponseBody
 	public String replyname() {
-
+		
 		if (userExist == true) {
 			userExist = false;
 			return "exists";
@@ -262,68 +269,70 @@ public class SimController {
 			return "goAhead";
 		}
 	}
+
+
+
+
+ 
+  @RequestMapping(value = "/display-sim-object", method = RequestMethod.GET)
+  public Object scan() {
+
+ DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+
+ List<Sim> sim = mapper.scan(Sim.class, scanExpression); 
+ return sim;
+
+ 
+
+  }
+
+
+
+
+  @RequestMapping(value = "/display-user-object", method = RequestMethod.GET)
+  public Object scan1() {
+  
+  DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+  
+List<UsersNew> usersNew = mapper.scan(UsersNew.class, scanExpression);
+return
+ usersNew; 
 }
-
-/*
- * Testing Purpose
- * 
- * @RequestMapping(value = "/display-sim-object", method = RequestMethod.GET)
- * public Object scan() {
- * 
- * DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
- * 
- * List<Sim> sim = mapper.scan(Sim.class, scanExpression); return sim; }
- */
+ 
 
 
 
+ 
+  @RequestMapping(value = "/display-sims", method = RequestMethod.GET)
 
-/*
- * Testing Purpose
- * 
- * @RequestMapping(value = "/display-user-object", method = RequestMethod.GET)
- * public Object scan1() {
- * 
- * DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
- * 
- * List<UsersNew> usersNew = mapper.scan(UsersNew.class, scanExpression); return
- * usersNew; }
- */
-
-
-
-
-/*
- * Testing Purpose
- * 
- * @RequestMapping(value = "/display-sims", method = RequestMethod.GET)
- * 
- * @ResponseBody public Object hello(@ModelAttribute Sim simfulldetails) {
- * List<Sim> lsim = simService.displayDetails("CANADA"); ArrayList<Map<String,
- * String>> lofmap = new ArrayList<>(); for (int i = 0; i < lsim.size(); i++) {
- * Map<String, String> str = new HashMap<>(); String s =
- * lsim.get(i).getCurrentStatus();
- * 
- * String a = "active"; if (s == null) { System.out.println(); } else if
- * (s.equals(a)) {
- * 
- * str.put("country", lsim.get(i).getCountry()); str.put("expiryDate",
- * lsim.get(i).getExpiryDate()); str.put("simType", lsim.get(i).getSimType());
- * str.put("phoneNumber", lsim.get(i).getPhoneNumber()); str.put("plan",
- * lsim.get(i).getPlan()); str.put("currentStatus",
- * lsim.get(i).getCurrentStatus()); str.put("currentUser",
- * lsim.get(i).getCurrentUser()); str.put("timestamp",
- * lsim.get(i).getTimestamp()); lofmap.add(str); }
- * 
- * } Collections.sort(lofmap, new Comparator<Map<String, String>>() { public int
- * compare(final Map<String, String> o1, final Map<String, String> o2) { return
- * o1.get("expiryDate").compareTo(o2.get("expiryDate")); } });
- * 
- * 
- * Map<String, String> maps1 = lofmap.get(0); String
- * phoneNumber=maps1.get("phoneNumber"); String country=maps1.get("country");
- * Sim simUse=mapper.load(Sim.class, country, phoneNumber);
- * simUse.setCurrentStatus("passive"); mapper.save(simUse);
- * 
- * return lofmap; }
- */
+  @ResponseBody public Object hello(@ModelAttribute Sim simfulldetails) {
+ List<Sim> lsim = simService.displayDetails("US"); ArrayList<Map<String,
+ String>> lofmap = new ArrayList<>(); for (int i = 0; i < lsim.size(); i++) {
+  Map<String, String> str = new HashMap<>(); String s =
+  lsim.get(i).getCurrentStatus();
+  
+  String a = "active"; if (s == null) { System.out.println(); } else if
+  (s.equals(a)) {
+  
+  str.put("country", lsim.get(i).getCountry()); str.put("expiryDate",
+  lsim.get(i).getExpiryDate()); str.put("simType", lsim.get(i).getSimType());
+  str.put("phoneNumber", lsim.get(i).getPhoneNumber()); str.put("plan",
+  lsim.get(i).getPlan()); str.put("currentStatus",
+  lsim.get(i).getCurrentStatus()); str.put("currentUser",
+  lsim.get(i).getCurrentUser()); str.put("timestamp",
+  lsim.get(i).getTimestamp()); lofmap.add(str); }
+  
+  } 
+ 
+ Collections.sort(lofmap, new Comparator<Map<String, String>>() { public int
+  compare(final Map<String, String> o1, final Map<String, String> o2) { return
+  o1.get("expiryDate").compareTo(o2.get("expiryDate")); } });
+  
+  
+  Map<String, String> maps1 = lofmap.get(0); String
+  phoneNumber=maps1.get("phoneNumber"); String country=maps1.get("country");
+  Sim simUse=mapper.load(Sim.class, country, phoneNumber);
+  simUse.setCurrentStatus("passive"); mapper.save(simUse);
+  
+  return lofmap; }
+  }

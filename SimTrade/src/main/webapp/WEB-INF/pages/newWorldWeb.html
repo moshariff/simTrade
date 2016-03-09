@@ -46,11 +46,17 @@
 	function allowDrop(ev) {
 		ev.preventDefault();
 	}
+	
 	/*This function is called when a sim is dragged from it's original position*/
 	function drag(ev) {
 		ev.dataTransfer.setData("text", ev.target.id);
-		var data = ev.dataTransfer.getData("text");
+		var data = ev.dataTransfer.getData("text");   /* The country from which the sim is dragged to book is recorded in a variable 'data' */
 
+		/* This call sends the data into the java controller where the data in dynamoDB
+		is filtered according to the country 
+		and helps in booking the sim based
+		on that country*/
+		
 		$.ajax({
 			type : "POST",
 			url : "checkAvailable.html",
@@ -65,14 +71,17 @@
 	}
 	/*Drag function ends here */
 
-	/*This function is called after a sim is dropped */
+	/*This function is called after a sim is dropped on the specified country to add or return a new sim. 
+	This function is then redirected to 'div_show()' to display a popup*/
 	function drop(ev) {
 		ev.preventDefault();
 		var data = ev.dataTransfer.getData("text");
-
 		ev.target.appendChild(document.getElementById(data));
 		div_show();
 	}
+	
+	/* This function is called after a sim is dropped on the specified location to book a sim.
+	This function is then redirected to check whether the sims are available in that country to book */
 	function drop1(ev) {
 		ev.preventDefault();
 		var dataset = ev.dataTransfer.getData("text");
@@ -81,6 +90,7 @@
 
 	}
 	/*Drop function ends here */
+	
 </script>
 
 <title>JQVMap - World Map</title>
@@ -133,9 +143,9 @@
 		}*/});
 	});
 </script>
- <!--jQuery ends here-->
- 
- 
+<!--jQuery ends here-->
+
+
 <!-- Styling of the map-->
 
 <style type="text/css">
@@ -158,7 +168,7 @@
 
 
 
-<!-- Sliding of the background images -->
+	<!-- Sliding of the background images -->
 
 	<ul class="cb-slideshow" style="list-style-type: none;">
 		<li><span></span></li>
@@ -204,7 +214,7 @@
 						name="currentStatus" value="active" type="hidden"> <br>
 					<br> <a href="javascript:%20check_empty()" id="submit">Send</a>
 				</form>
-					<!--  Form Ends here -->
+				<!--  Form Ends here -->
 			</div>
 			<!-- Popup Div Ends Here -->
 		</div>
@@ -225,7 +235,7 @@
 							type="text" onfocusout="checkName(event)"> <input
 							id="country" name="country" placeholder="country" type="hidden">
 
-						<input id="email" name="email" placeholder="email" type="text"">
+						<input id="email" name="email" placeholder="email" type="text" onfocusout="validateEmail(event)">
 						<br> <br> <br> <a
 							href="javascript:%20check_empty1()" id="submit">Send</a>
 					</form>
@@ -234,7 +244,7 @@
 				<!-- Popup Div Ends Here -->
 			</div>
 
-<!-- Image on the country to show that the sim is available in that particular country -->
+			<!-- Image on the country to show that the sim is available in that particular country -->
 			<img id="US" src="/images/sim.png" draggable="true"
 				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 180px; top: 300px; z-index: 2;">
@@ -243,7 +253,7 @@
 			<img id="CANADA" src="/images/sim.png" draggable="true"
 				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 180px; top: 200px; z-index: 2;">
-				
+
 			<!-- Positioning of the location where the sim has to be dropped to book a sim -->
 			<div id="phone" ondrop="drop1(event)" ondragover="allowDrop(event)"
 				style="position: absolute; left: 80%; top: 70%; width: 200px; height: 200px; border-color: blue; background: transparent; text-align: center; z-index: 2;">
@@ -253,8 +263,8 @@
 				<img src="/images/cellphone.png" width="130" height="120"
 					alt="Tutorials " style="border-color: transparent;" border="0">
 			</div>
-			
-			
+
+
 			<!-- Positioning of the location where the sim has to be dropped to add a new sim -->
 			<div id="india" ondrop="drop(event)" ondragover="allowDrop(event)"
 				style="position: absolute; left: 53%; top: 40%; width: 60px; height: 75px; border-color: blue; background: transparent; z-index: 2;"></div>
@@ -263,6 +273,6 @@
 				height="50px"
 				style="position: absolute; left: 1200px; top: 10px; z-index: 2">
 			<div id="rad2"z-index: 2  >
-				<marqueez-index: 2></marquee></div>
+				<marqueez-index:2></marquee></div>
 </body>
 </html>

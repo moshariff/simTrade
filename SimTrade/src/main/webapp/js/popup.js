@@ -9,8 +9,11 @@ function check_empty() {
 
 	}
 }
+
+//Function to validate whether the user currently has a sim or not
 function checkName(ev) {
 	var data = ev.target.value;
+	
 	$.ajax({
 		type : "POST",
 		url : "checkName.html",
@@ -18,6 +21,7 @@ function checkName(ev) {
 		success : function(response) {
 
 			$.get("http://localhost:8080/replyname", function(data, status) {
+			
 				if (data == 'exists')
 					alert("pls return ur old Sim");
 			});
@@ -38,9 +42,23 @@ function Hello(dataset) {
 			div_show1(dataset);
 		else
 			alert("NO SIMS AVAILABLE FOR " + dataset);
+		
 	});
 
 }
+
+//Function to validate email address
+function validateEmail(ev) {
+	
+	var data = ev.target.value;
+	    var atpos = data.indexOf("@");
+	    var dotpos = data.lastIndexOf(".");
+	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+	        alert("Not a valid e-mail address");
+	      return false;
+	    }
+	   	    }
+
 //Function to check whether necessary fields are entered while booking a Sim
 function check_empty1() {
 
