@@ -1,13 +1,13 @@
-var ALERT_TITLE = "ERROR";
-var ALERT_BUTTON_TEXT = "OK";
+var ALERT_TITLE1 = "ERRORS";
+var ALERT_BUTTON_TEXT1 = "OK";
 
 if(document.getElementById) {
-	window.alert = function(txt) {
-		createCustomAlert(txt);
+	window.alert1 = function(txt) {
+		createCustomAlert1(txt);
 	}
 }
 
-function createCustomAlert(txt) {
+function createCustomAlert1(txt) {
 	d = document;
 
 	if(d.getElementById("modalContainer")) return;
@@ -23,7 +23,7 @@ function createCustomAlert(txt) {
 	alertObj.style.visiblity="visible";
 
 	h1 = alertObj.appendChild(d.createElement("h1"));
-	h1.appendChild(d.createTextNode(ALERT_TITLE));
+	h1.appendChild(d.createTextNode(ALERT_TITLE1));
 
 	msg = alertObj.appendChild(d.createElement("p"));
 	//msg.appendChild(d.createTextNode(txt));
@@ -31,17 +31,18 @@ function createCustomAlert(txt) {
 
 	btn = alertObj.appendChild(d.createElement("a"));
 	btn.id = "closeBtn";
-	btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT));
+	btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT1));
 	btn.href = "#";
 	btn.focus();
-	btn.onclick = function() {  removeCustomAlert();return false;  }
+	btn.onclick = function() { location.reload(); removeCustomAlert1();return false;  }
 
 	alertObj.style.display = "block";
 	
 }
 
-function removeCustomAlert() {
+function removeCustomAlert1() {
 	document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
 	
 }
+
 

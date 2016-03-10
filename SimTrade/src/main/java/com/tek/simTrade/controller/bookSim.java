@@ -67,6 +67,7 @@ public class bookSim {
 		return mav;
 	}
 
+	
 	/*
 	 * This Controller mapping is called when the user books a Sim. The input to
 	 * this controller is the model/user object that the user inputs through a
@@ -129,9 +130,7 @@ public class bookSim {
 		//String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
 		  
 		//appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
-		  
-		    
-
+	  
 		String url = "http://localhost:8080/worldWeb";
 		return new ModelAndView("redirect:" + url);
 	}
@@ -183,6 +182,7 @@ public class bookSim {
 	
 	
 	// Boolean variable true if the user exists and false if not
+
 			boolean userExist = false;
 
 			/*
@@ -210,21 +210,19 @@ public class bookSim {
 				}
 			}
 
-			/*
-			 * This controller mapping communicates to front end if user already exists
-			 */
-			@RequestMapping(value = "/replyname", method = RequestMethod.GET)
-			@ResponseBody
-			public String replyname() {
+	/*
+	 * This controller mapping communicates to front end if user already exists
+	 */
+	@RequestMapping(value = "/replyname", method = RequestMethod.GET)
+	@ResponseBody
+	public String replyname() {
+		
+		if (userExist == true) {
+			userExist = false;
+			return "exists";
 
-				if (userExist == true) {
-					userExist = false;
-					return "exists";
-
-				} else {
-					return "goAhead";
-				}
-			}
-
-
+		} else {
+			return "goAhead";
+		}
+	}
 }

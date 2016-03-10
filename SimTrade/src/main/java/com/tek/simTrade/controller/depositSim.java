@@ -82,6 +82,7 @@ public class depositSim {
 						 +"\n Country is: "+sim.getCountry();
 				appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED", text);
 				*/// free the user's phoneNumber field indicating he returned
+
 				lusers.get(i).setSimPhoneNumber(null);
 				// save the changes
 				mapper.save(lusers.get(i));
