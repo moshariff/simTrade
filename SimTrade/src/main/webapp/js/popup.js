@@ -64,8 +64,11 @@ function checkName(ev) {
 			$.get("http://localhost:8080/replyname", function(data, status) {
 			
 				if (data == 'exists')
-					alert("pls return ur old Sim");
-			
+					{
+					
+					alert1("pls return your old Sim");
+
+					}
 			});
 		},
 		error : function(e) {
@@ -83,34 +86,49 @@ function Hello(dataset) {
 		if (data == 'available')
 			div_show1(dataset);
 		else
-			alert("NO SIMS AVAILABLE FOR " + dataset);
+			alert1("NO SIMS AVAILABLE FOR " + dataset);
 		
 	});
 
 }
 
 //Function to validate email address
-function validateEmail(ev) {
+/*function validateEmail() {
 	
-	var data = ev.target.value;
-	    var atpos = data.indexOf("@");
-	    var dotpos = data.lastIndexOf(".");
-	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-	        alert("Not a valid e-mail address");
-	      return false;
-	    }
-	   	    }
+	var data = document.getElementById('email').value;
+    var atpos = data.indexOf("@");
+    var dotpos = data.lastIndexOf(".");
+   
+    	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+	        alert("Not a valid e-mail ");
+	        
+	return false;
+    }  
+return true;
+ }
+*/
 
 //Function to check whether necessary fields are entered while booking a Sim
 function check_empty1() {
-
+	var data = document.getElementById('email').value;
+    var atpos = data.indexOf("@");
+    var dotpos = data.lastIndexOf(".");
+    
 	if (document.getElementById('userName').value == ""
 			|| document.getElementById('email').value == "") {
-		alert("Fill All Fields !");
-	} else {
+		alert("Fill All Fields correctly!");
+	} 
+	else {
+		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=data.length)
+			{
+			alert( "Not a valid Email ");
+			}
+		else
+			{
+			
 		document.getElementById('form1').submit();
-
-		alert("Form Submitted Successfully");
+		alert("Form Submitted Successfully...");
+			}
 	}
 }
 //Function To Display Popup to add a new sim 
