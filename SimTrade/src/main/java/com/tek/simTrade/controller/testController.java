@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
@@ -27,10 +29,15 @@ import com.tek.simTrade.service.SimService;
 public class testController {
 
 	// Service class
+	@Autowired
+	private Environment env;
 
 	@Autowired
 	private SimService simService;
+	
 
+	
+	
 	/*
 	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
 	 * access to a DynamoDB endpoint and enables you to access your data in
@@ -138,13 +145,16 @@ public class testController {
 		return lofmap;
 	}
 	@RequestMapping(value = "/testpost", method = RequestMethod.POST)
-	public @ResponseBody void testpost(@RequestBody String obj) {
+	public  ModelAndView testpost(@RequestBody String obj) {
 
-				System.out.println(obj);
+				System.out.println("sad: "+obj);
+				String url = "http://localhost:8080/worldWeb";
+				return new ModelAndView("redirect:" + url);
 	}
 	@RequestMapping(value = "/testing", method = RequestMethod.GET)
 	@ResponseBody
-	public  String  testing() {
-		return "redirect:worldWeb";
+	public  ModelAndView  testing() {
+		String s=env.getProperty("amazon.access.key");
+	return new ModelAndView("test");
 				}
 }

@@ -68,7 +68,7 @@ public class AppService
 		  Session session = Session.getDefaultInstance(props,  
 		   new javax.mail.Authenticator() {  
 		   protected PasswordAuthentication getPasswordAuthentication() {  
-		   return new PasswordAuthentication("yourEmailID@gmail.com","your Password");//change accordingly  
+		   return new PasswordAuthentication("yourEmailId@gmail.com","urPassword");//change accordingly  
 		   }  
 		  });  
 		   

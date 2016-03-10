@@ -12,6 +12,7 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.tek.simTrade.models.Sim;
 
+
 @Service
 public class SimService {
 	/*
@@ -29,6 +30,7 @@ public class SimService {
 	// model/Sim object
 	Sim sim = new Sim();
 
+
 	/*
 	 * creates a sim object
 	 */
@@ -41,7 +43,7 @@ public class SimService {
 		// Fire off the CreateTableRequest using the low-level client
 		amazonDynamoDBClient.createTable(createTableRequest);
 	}
-
+	
 	/*
 	 * Scans the model/Sim table to return list of sims.
 	 */

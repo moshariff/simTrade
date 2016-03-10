@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
@@ -50,9 +52,10 @@ public class DynamoDbConfig {
 	@Bean
 	public AmazonDynamoDBClient amazonDynamoDBClient() {
 		AmazonDynamoDBClient amazonDynamoDBClient = new AmazonDynamoDBClient(basicAWSCredentials());
-
+        Region usWest2 = Region.getRegion(Regions.US_WEST_2);
+        amazonDynamoDBClient.setRegion(usWest2);
 		// TODO get endpoint from properties file
-		amazonDynamoDBClient.setEndpoint(env.getProperty("amazon.dynamodb.endpoint"));
+		//amazonDynamoDBClient.setEndpoint(env.getProperty("amazon.dynamodb.endpoint"));
 		return amazonDynamoDBClient;
 	}
 

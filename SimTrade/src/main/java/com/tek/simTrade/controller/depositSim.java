@@ -77,24 +77,18 @@ public class depositSim {
 			// if both numbers match, the sim is being returned
 			else if (userPhoneNumber.equals(simPhoneNumber)) {
 				
-				String text="THANK YOU FOR RETURNING THE SIM \n"
+				/*String text="THANK YOU FOR RETURNING THE SIM \n"
 						+"Sim Phone Number: "+ sim.getPhoneNumber() +"\n Sim Type: "+ sim.getSimType()
 						 +"\n Country is: "+sim.getCountry();
 				appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED", text);
-				// free the user's phoneNumber field indicating he returned
+				*/// free the user's phoneNumber field indicating he returned
 				lusers.get(i).setSimPhoneNumber(null);
 				// save the changes
 				mapper.save(lusers.get(i));
 			}
 		}
-		
-		
-		
+
 		String url="http://localhost:8080/worldWeb";
 		return new ModelAndView("redirect:" +url);
 		}
-	
-	
-
-
 }
