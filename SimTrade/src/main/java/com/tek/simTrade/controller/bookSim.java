@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import org.springframework.ui.Model;
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tek.simTrade.models.Sim;
@@ -137,13 +139,15 @@ public class bookSim {
 		mapper.save(usersNew);
 		//String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
 		  
-		//appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
-	  System.out.println("came till redirect");
-		RedirectView redirectView = new RedirectView();
-		  redirectView.setContextRelative(true);
-		  redirectView.setUrl("/worldWeb");
-		  return redirectView;
+
+		/*appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
+		  */
 		
+		RedirectView redirectView = new RedirectView();
+		redirectView.setContextRelative(true);
+		redirectView.setUrl("/worldWeb");
+		return redirectView;
+
 	}
 
 	// global counter for communication between controllers

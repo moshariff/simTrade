@@ -90,8 +90,8 @@ public class depositSim {
 			}
 		}
 		RedirectView redirectView = new RedirectView();
-		  redirectView.setContextRelative(true);
-		  redirectView.setUrl("/worldWeb");
-		  return redirectView;
+		redirectView.setContextRelative(true);
+		redirectView.setUrl("/worldWeb");
+		return redirectView;
 		}
 }
