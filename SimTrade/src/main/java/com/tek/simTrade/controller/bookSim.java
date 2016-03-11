@@ -20,14 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import org.springframework.ui.Model;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tek.simTrade.models.Sim;
 import com.tek.simTrade.models.UsersNew;
-import com.tek.simTrade.service.AppService;
 import com.tek.simTrade.service.SimService;
+
 @RestController
 @RequestMapping(value = "/")
 
@@ -45,8 +43,6 @@ public class bookSim {
 	@Autowired
 	private SimService simService;
 
-	@Autowired
-	private AppService appService;
 	/*
 	 * Creates the table Models/Sim
 	 */
@@ -56,7 +52,7 @@ public class bookSim {
 		simService.createSimTradeTable();
 		return "Sim Table Created";
 	}
-	
+
 	/*
 	 * Fires up the home page or the only page in our application
 	 */
@@ -67,11 +63,10 @@ public class bookSim {
 
 		mav.addObject("sim-entity", new Sim());
 		mav.addObject("user-entity", new UsersNew());
-		
+
 		return mav;
 	}
 
-	
 	/*
 	 * This Controller mapping is called when the user books a Sim. The input to
 	 * this controller is the model/user object that the user inputs through a
@@ -83,27 +78,26 @@ public class bookSim {
 	public Object env1(HttpServletRequest request, @ModelAttribute UsersNew usersNew, @RequestParam String country) {
 		// call to service class to scan the Sim table and return list of
 		// sims(lsim).
-		
-		System.out.println("came to class country is: "+country);
+
 		List<Sim> lsim = simService.displayDetails(country);
-		
+
 		// convert list of sims to list of maps each map indicates a sim
 		ArrayList<Map<String, String>> lofmap = new ArrayList<>();
 		// loop through sims
-		System.out.println("inside for loop");
+		
 		for (int i = 0; i < lsim.size(); i++) {
 			Map<String, String> str = new HashMap<>();
 			String s = lsim.get(i).getCurrentStatus();
-			System.out.println("s value: " +s);
+		
 			String a = "active";
 			if (s == null) {
-				System.out.println("null");
+			
 
 			}
-			
+
 			// load only active Sims in a map(lofmap)
 			else if (s.equals(a)) {
-
+				
 				str.put("country", lsim.get(i).getCountry());
 				str.put("expiryDate", lsim.get(i).getExpiryDate());
 				str.put("simType", lsim.get(i).getSimType());
@@ -137,12 +131,14 @@ public class bookSim {
 		usersNew.setSimPhoneNumber(phoneNumber);
 		// save the user
 		mapper.save(usersNew);
-		//String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
-		  
+		// String text="U have Booked a Sim \n Sim Phone number is: "
+		// +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n
+		// Country is: " +simUse.getCountry();
 
-		/*appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
-		  */
-		
+		/*
+		 * appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
+		 */
+
 		RedirectView redirectView = new RedirectView();
 		redirectView.setContextRelative(true);
 		redirectView.setUrl("/worldWeb");
@@ -150,19 +146,16 @@ public class bookSim {
 
 	}
 
-	// global counter for communication between controllers
-	int counter;
-
 	/*
 	 * This controller mapping checks if sims are available by the country
 	 * passed
 	 */
 	@RequestMapping(value = "/checkAvailable", method = RequestMethod.POST)
 	public @ResponseBody String checkAvailable(@RequestBody String country) {
-	
+
 		country = country.substring(0, country.length() - 1);
-			// scan the table of Sims to return a list of Sims
-		System.out.println("going thru checkAvailable");
+		// scan the table of Sims to return a list of Sims
+
 		List<Sim> lsim = simService.displayDetails(country);
 		// count to maintain the number of active sims
 		int count = 0;
@@ -183,59 +176,39 @@ public class bookSim {
 			return "empty";
 		else
 			return "available";
-		
+
 	}
 
 	/*
-	 * This controller returns to the front End if Sims are available or not
-	 * depending on the count in previous mapping
+	 * This controller checks when the user is booking a sim, if he already has
+	 * booked before
 	 */
-	/*@RequestMapping(value = "/replyavailable", method = RequestMethod.GET)
-	@ResponseBody
-	public String replyAvailable() {
-		System.out.println("counter value: "+counter);
-		if (counter == 0)
-			return "empty";
-		else
-			return "available";
-	}
-	*/
-	
-	// Boolean variable true if the user exists and false if not
-
-	
-
-			/*
-			 * This controller checks when the user is booking a sim, if he already has
-			 * booked before 
-			 */
-			@RequestMapping(value = "/checkName", method = RequestMethod.POST)
-			public @ResponseBody String checkName(@RequestBody String name) {
-				name = name.substring(0, name.length() - 1);
-				name = name.replace('+', ' ');
-				boolean userExist = false;
-				DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-				// scans user table to return list of users(lUser)
-				List<UsersNew> lUser = mapper.scan(UsersNew.class, scanExpression);
-				// loop through users
-				for (int i = 0; i < lUser.size(); i++) {
-					String username = lUser.get(i).getUserName();
-					// if user name exists
-					if (name.equals(username)) {
-						String nullvalue=lUser.get(i).getSimPhoneNumber();
-						if (nullvalue != null) {
-							userExist = true;
-						}
-						}
-				}
-				if (userExist == true) {
-					userExist = false;
-					return "exists";
-
-				} else {
-					return "goAhead";
+	@RequestMapping(value = "/checkName", method = RequestMethod.POST)
+	public @ResponseBody String checkName(@RequestBody String name) {
+		name = name.substring(0, name.length() - 1);
+		name = name.replace('+', ' ');
+		boolean userExist = false;
+		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+		// scans user table to return list of users(lUser)
+		List<UsersNew> lUser = mapper.scan(UsersNew.class, scanExpression);
+		// loop through users
+		for (int i = 0; i < lUser.size(); i++) {
+			String username = lUser.get(i).getUserName();
+			// if user name exists
+			if (name.equals(username)) {
+				String nullvalue = lUser.get(i).getSimPhoneNumber();
+				if (nullvalue != null) {
+					userExist = true;
 				}
 			}
+		}
+		if (userExist == true) {
+			userExist = false;
+			return "exists";
 
-	
+		} else {
+			return "goAhead";
+		}
+	}
+
 }

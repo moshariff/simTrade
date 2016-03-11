@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -19,19 +18,18 @@ import com.tek.simTrade.models.Sim;
 import com.tek.simTrade.models.UsersNew;
 import com.tek.simTrade.service.AppService;
 import com.tek.simTrade.service.UsersNewService;
+
 @RestController
-@RequestMapping(value="/")
+@RequestMapping(value = "/")
 public class depositSim {
-	
+
 	/*
 	 * Service class
 	 */
 	@Autowired
 	private UsersNewService usersService;
-	
-	@Autowired
-	private AppService appService;
-	
+
+
 	/*
 	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
 	 * access to a DynamoDB endpoint and enables you to access your data in
@@ -40,17 +38,17 @@ public class depositSim {
 	 */
 	@Autowired
 	private DynamoDBMapper mapper;
+
 	/*
 	 * creates a model/User table
 	 */
 	@RequestMapping(value = "/create-users", method = RequestMethod.GET)
 	@ResponseBody
-	String createUser()
-	{
+	String createUser() {
 		usersService.createUserTable();
 		return "User Table Created";
 	}
-	
+
 	/*
 	 * This controller mapping is fired when the user adds a sim into the
 	 * application. It verifies if the sim already exists by comparing the
@@ -77,12 +75,14 @@ public class depositSim {
 			}
 			// if both numbers match, the sim is being returned
 			else if (userPhoneNumber.equals(simPhoneNumber)) {
-				
-				/*String text="THANK YOU FOR RETURNING THE SIM \n"
-						+"Sim Phone Number: "+ sim.getPhoneNumber() +"\n Sim Type: "+ sim.getSimType()
-						 +"\n Country is: "+sim.getCountry();
-				appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED", text);
-				*/// free the user's phoneNumber field indicating he returned
+
+				/*
+				 * String text="THANK YOU FOR RETURNING THE SIM \n" +
+				 * "Sim Phone Number: "+ sim.getPhoneNumber() +"\n Sim Type: "+
+				 * sim.getSimType() +"\n Country is: "+sim.getCountry();
+				 * appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED",
+				 * text);
+				 */// free the user's phoneNumber field indicating he returned
 
 				lusers.get(i).setSimPhoneNumber(null);
 				// save the changes
@@ -93,5 +93,5 @@ public class depositSim {
 		redirectView.setContextRelative(true);
 		redirectView.setUrl("/worldWeb");
 		return redirectView;
-		}
+	}
 }

@@ -13,7 +13,7 @@ h1 { color: #CEF0D4; font-family: 'Rouge Script', cursive; font-size: 130px; fon
 }
 .cb-slideshow:after { 
     content: '';
-    background: transparent url(../images/dark_brick.jpg) repeat top left;
+    background: transparent url(../images/pattern.jpg) repeat top left;
    
 }
 

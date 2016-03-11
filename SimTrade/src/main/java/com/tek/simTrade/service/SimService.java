@@ -48,7 +48,7 @@ public class SimService {
 	 * Scans the model/Sim table to return list of sims.
 	 */
 	public List<Sim> displayDetails(String country) {
-		System.out.println("this is country: "+country);
+	
 		Sim dim = new Sim();
 		dim.setCountry(country);
 		DynamoDBQueryExpression<Sim> queryExpression = new DynamoDBQueryExpression<Sim>().withHashKeyValues(dim);

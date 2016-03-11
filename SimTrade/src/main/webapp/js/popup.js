@@ -1,7 +1,10 @@
 //Function to check whether necessary fields are entered while adding a new Sim 
 function check_empty() {
 	if (document.getElementById('phoneNumber').value == ""
-			|| document.getElementById('currentStatus').value == "") {
+			|| document.getElementById('currentStatus').value == ""
+	||	 document.getElementById('expiryDate').value == ""		
+	
+	) {
 		alert("Fill All Fields !");
 	} else {
 		document.getElementById('form').submit();
@@ -10,10 +13,9 @@ function check_empty() {
 	}
 }
 
+// Function to validate whether the user currently has a sim or not
 
-//Function to validate whether the user currently has a sim or not
-
-/*This function is called after a sim is dropped */
+/* This function is called after a sim is dropped */
 function drop(ev) {
 	ev.preventDefault();
 	var data = ev.dataTransfer.getData("text");
@@ -24,7 +26,7 @@ function drop(ev) {
 function drop1(ev) {
 	ev.preventDefault();
 	var dataset = ev.dataTransfer.getData("text");
-	
+
 	$.ajax({
 		type : "POST",
 		url : "checkAvailable",
@@ -39,21 +41,21 @@ function drop1(ev) {
 
 		}
 	});
-/*	Hello(dataset);
-*/
+	/*
+	 * Hello(dataset);
+	 */
 }
-/*Drop function ends here */
+/* Drop function ends here */
 function allowDrop(ev) {
 	ev.preventDefault();
 }
-/*This function is called when a sim is dragged from it's original position*/
+/* This function is called when a sim is dragged from it's original position */
 function drag(ev) {
 	ev.dataTransfer.setData("text", ev.target.id);
 	var data = ev.dataTransfer.getData("text");
 
-	
 }
-/*Drag function ends here */
+/* Drag function ends here */
 
 function checkName(ev) {
 
@@ -64,13 +66,12 @@ function checkName(ev) {
 		url : "checkName",
 		data : data,
 		success : function(response) {
-			if (response == 'exists')
-			{
-			
-			alert1("pls return your old Sim");
+			if (response == 'exists') {
+
+				alert1("pls return your old Sim");
 
 			}
-			
+
 		},
 		error : function(e) {
 
@@ -78,64 +79,57 @@ function checkName(ev) {
 	});
 }
 
+// Function to validate email address
+/*
+ * function validateEmail() {
+ * 
+ * var data = document.getElementById('email').value; var atpos =
+ * data.indexOf("@"); var dotpos = data.lastIndexOf(".");
+ * 
+ * if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) { alert("Not a valid
+ * e-mail ");
+ * 
+ * return false; } return true; }
+ */
 
-//Function to validate email address
-/*function validateEmail() {
-	
-	var data = document.getElementById('email').value;
-    var atpos = data.indexOf("@");
-    var dotpos = data.lastIndexOf(".");
-   
-    	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-	        alert("Not a valid e-mail ");
-	        
-	return false;
-    }  
-return true;
- }
-*/
-
-//Function to check whether necessary fields are entered while booking a Sim
+// Function to check whether necessary fields are entered while booking a Sim
 function check_empty1() {
 	var data = document.getElementById('email').value;
-    var atpos = data.indexOf("@");
-    var dotpos = data.lastIndexOf(".");
-    
+	var atpos = data.indexOf("@");
+	var dotpos = data.lastIndexOf(".");
+
 	if (document.getElementById('userName').value == ""
 			|| document.getElementById('email').value == "") {
 		alert("Fill All Fields correctly!");
-	} 
-	else {
-		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=data.length)
-			{
-			alert( "Not a valid Email ");
-			}
-		else
-			{
-			
-		document.getElementById('form1').submit();
-		alert("Form Submitted Successfully...");
-			}
+	} else {
+		if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= data.length) {
+			alert("Not a valid Email ");
+		} else {
+
+			document.getElementById('form1').submit();
+			alert("Form Submitted Successfully...");
+		}
 	}
 }
-//Function To Display Popup to add a new sim 
+// Function To Display Popup to add a new sim
 function div_show() {
 	document.getElementById('depositSim').style.display = "block";
 }
-//Function To Display Popup to book a sim 
+// Function To Display Popup to book a sim
 function div_show1(data) {
 
 	document.getElementById('country').value = data;
-alert(document.getElementById('country').value);
+	
+	alert(document.getElementById('country').value);
 	document.getElementById('bookSim').style.display = "block";
 
 }
 
-//Function to Hide add a new sim Popup
+// Function to Hide add a new sim Popup
 function div_hide() {
 	document.getElementById('depositSim').style.display = "none";
 }
-//Function to Hide book a sim Popup
+// Function to Hide book a sim Popup
 function div_hide1() {
 	document.getElementById('bookSim').style.display = "none";
 }

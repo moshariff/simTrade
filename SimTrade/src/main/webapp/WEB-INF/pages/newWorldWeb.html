@@ -61,9 +61,14 @@
 <!--jQuery ends here-->
 
 </head>
-<body >
-<!-- World Map Tag-->
-	<div id="vmap" style="width: 1000px; height: 800px; z-index: 2"></div>
+<body>
+	<!-- World Map Tag-->
+	<div id="vmap" style="width: 1000px; height: 800px; z-index: 2">
+	
+	<div id="india" ondrop="drop(event)" ondragover="allowDrop(event)"
+				style="position: absolute; left: 67%; top: 43%; width: 90px; height: 97px; border-color: blue; background:transparent ; z-index: 2;"></div>
+	
+	</div>
 
 
 
@@ -75,13 +80,13 @@
 		<li><span></span></li>
 		<li><span></span></li>
 	</ul>
-<!--Headers of the page  -->
+	<!--Headers of the page  -->
 	<div data-role="header" class="header"z-index: 2>
 		<div class="neon">SIM SHARE</div>
 		<div class="neon1">"For people who need to communicate"</div>
 	</div>
 
-<!--Form to deposit a sim  -->
+	<!--Form to deposit a sim  -->
 	<div id="body" style="overflow: hidden;">
 		<div id="depositSim">
 			<!-- Popup Div Starts Here -->
@@ -95,10 +100,10 @@
 					<hr>
 					<input id="phoneNumber" name="phoneNumber"
 						placeholder="phoneNumber" type="text"> <select
-						name="country1">
+						name="country">
 						<option value="US">US</option>
 						<option value="CANADA">CANADA</option>
-					</select> <input type="date" name="expiryDate"> <br> <select
+					</select> <input type="date" name="expiryDate" id="expiryDate"> <br> <select
 						name="simType">
 						<option value="prepaid">prepaid</option>
 						<option value="postpaid">postpaid</option>
@@ -112,7 +117,7 @@
 			<!-- Popup Div Ends Here -->
 		</div>
 
-<!--Form to book a sim  -->
+		<!--Form to book a sim  -->
 		<div id="body" style="overflow: hidden;">
 			<div id="bookSim">
 				<!-- Popup Div Starts Here -->
@@ -129,8 +134,8 @@
 							type="text" onfocusout="checkName(event)"> <input
 							id="country" name="country" placeholder="country" type="hidden">
 
-						<input id="email" name="email" placeholder="email" type="email" >
-					<!-- 	<input type="email" name="myInput" ng-model="myInput"><h1>{{myForm.myInput.$valid}}</h1> -->
+						<input id="email" name="email" placeholder="email" type="email">
+						<!-- 	<input type="email" name="myInput" ng-model="myInput"><h1>{{myForm.myInput.$valid}}</h1> -->
 						<br> <br> <br> <a
 							href="javascript:%20check_empty1()" id="submit">Send</a>
 					</form>
@@ -140,17 +145,20 @@
 			</div>
 
 			<!-- Image on the country to show that the sim is available in that particular country -->
-			<img id="US" src="/images/sim.png" draggable="true" title="drag a sim  to the cell phone to book it"
+			<img id="US" src="/images/sim.png" draggable="true"
+				title="drag a sim  to the cell phone to book it"
 				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 180px; top: 300px; z-index: 2;">
 
 
-			<img id="CANADA" src="/images/sim.png" draggable="true"  title="drag a sim to the cell phone to book it"
+			<img id="CANADA" src="/images/sim.png" draggable="true"
+				title="drag a sim to the cell phone to book it"
 				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 180px; top: 200px; z-index: 2;">
 
 			<!-- Positioning of the location where the sim has to be dropped to book a sim -->
-			<div id="phone" ondrop="drop1(event)" ondragover="allowDrop(event)"  title="drop a sim here to book a sim"
+			<div id="phone" ondrop="drop1(event)" ondragover="allowDrop(event)"
+				title="drop a sim here to book a sim"
 				style="position: absolute; left: 80%; top: 70%; width: 200px; height: 200px; border-color: blue; background: transparent; text-align: center; z-index: 2;">
 				<marquee>
 					<div id="rad1"></div>
@@ -161,16 +169,16 @@
 
 
 			<!-- Positioning of the location where the sim has to be dropped to add a new sim -->
-			<div id="india" ondrop="drop(event)" ondragover="allowDrop(event)" style="position: absolute; left: 50%; top: 53%; width: 90px; height: 92px; border-color: blue; background:transparent ; z-index: 2;"></div>
-
+			<!-- <div id="india" ondrop="drop(event)" ondragover="allowDrop(event)"
+				style="position: absolute; left: 50%; top: 53%; width: 90px; height: 92px; border-color: blue; background: blue; z-index: 2;"></div>
+ -->
 			<br> <img id="drag1" src="/images/multipleSims.png"
-				draggable="true"  title="drag the sim to India to deposit a  new sim" ondragstart="drag(event)" width="50px"
-				height="50px"
+				draggable="true" title="drag the sim to India to deposit a  new sim"
+				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 1200px; top: 10px; z-index: 2">
-			<div id="rad2"z-index: 2  > 
-				<marqueez-index:2></marquee></div>
-				
-				
-				
+			<div id="rad2"z-index: 2  >
+				<marqueez-index:2>
+					</marquee>
+			</div>
 </body>
 </html>
