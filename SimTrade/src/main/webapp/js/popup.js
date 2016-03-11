@@ -24,9 +24,23 @@ function drop(ev) {
 function drop1(ev) {
 	ev.preventDefault();
 	var dataset = ev.dataTransfer.getData("text");
+	
+	$.ajax({
+		type : "POST",
+		url : "checkAvailable",
+		data : dataset,
+		success : function(response) {
+			if (response == 'available')
+				div_show1(dataset);
+			else
+				alert1("NO SIMS AVAILABLE FOR " + dataset);
+		},
+		error : function(e) {
 
-	Hello(dataset);
-
+		}
+	});
+/*	Hello(dataset);
+*/
 }
 /*Drop function ends here */
 function allowDrop(ev) {
@@ -37,60 +51,33 @@ function drag(ev) {
 	ev.dataTransfer.setData("text", ev.target.id);
 	var data = ev.dataTransfer.getData("text");
 
-	$.ajax({
-		type : "POST",
-		url : "checkAvailable.html",
-		data : data,
-		success : function(response) {
-
-		},
-		error : function(e) {
-
-		}
-	});
+	
 }
 /*Drag function ends here */
 
 function checkName(ev) {
-	
+
 	var data = ev.target.value;
 
 	$.ajax({
 		type : "POST",
-		url : "checkName.html",
+		url : "checkName",
 		data : data,
 		success : function(response) {
-
-			$.get("http://localhost:8080/replyname", function(data, status) {
+			if (response == 'exists')
+			{
 			
-				if (data == 'exists')
-					{
-					
-					alert1("pls return your old Sim");
+			alert1("pls return your old Sim");
 
-					}
-			});
+			}
+			
 		},
 		error : function(e) {
 
 		}
 	});
 }
-// Function to check whether Sims are available in a particular country or not
-function Hello(dataset) {
-	var datas;
 
-	$.get("http://localhost:8080/replyavailable", function(data, status) {
-
-		datas = data;
-		if (data == 'available')
-			div_show1(dataset);
-		else
-			alert1("NO SIMS AVAILABLE FOR " + dataset);
-		
-	});
-
-}
 
 //Function to validate email address
 /*function validateEmail() {
@@ -139,7 +126,7 @@ function div_show() {
 function div_show1(data) {
 
 	document.getElementById('country').value = data;
-
+alert(document.getElementById('country').value);
 	document.getElementById('bookSim').style.display = "block";
 
 }

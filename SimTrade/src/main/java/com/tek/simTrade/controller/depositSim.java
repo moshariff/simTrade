@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
@@ -58,7 +59,7 @@ public class depositSim {
 	 * null indicating that he returned the sim
 	 */
 	@RequestMapping(value = "/display-sim-details", method = RequestMethod.POST)
-	public Object env(HttpServletRequest request, @ModelAttribute Sim sim) {
+	public RedirectView env(HttpServletRequest request, @ModelAttribute Sim sim) {
 
 		mapper.save(sim);
 		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
@@ -88,8 +89,9 @@ public class depositSim {
 				mapper.save(lusers.get(i));
 			}
 		}
-
-		String url="http://localhost:8080/worldWeb";
-		return new ModelAndView("redirect:" +url);
+		RedirectView redirectView = new RedirectView();
+		  redirectView.setContextRelative(true);
+		  redirectView.setUrl("/worldWeb");
+		  return redirectView;
 		}
 }

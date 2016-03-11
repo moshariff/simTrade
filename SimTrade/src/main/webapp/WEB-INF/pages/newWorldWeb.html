@@ -95,7 +95,7 @@
 					<hr>
 					<input id="phoneNumber" name="phoneNumber"
 						placeholder="phoneNumber" type="text"> <select
-						name="country">
+						name="country1">
 						<option value="US">US</option>
 						<option value="CANADA">CANADA</option>
 					</select> <input type="date" name="expiryDate"> <br> <select
@@ -138,21 +138,19 @@
 				</div>
 				<!-- Popup Div Ends Here -->
 			</div>
-			
-			
 
 			<!-- Image on the country to show that the sim is available in that particular country -->
-			<img id="US" src="/images/sim.png" draggable="true" title="drop a sim from here to cell phone to book it"
+			<img id="US" src="/images/sim.png" draggable="true" title="drag a sim  to the cell phone to book it"
 				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 180px; top: 300px; z-index: 2;">
 
 
-			<img id="CANADA" src="/images/sim.png" draggable="true"  title="drop a sim from here to cell phone to book it"
+			<img id="CANADA" src="/images/sim.png" draggable="true"  title="drag a sim to the cell phone to book it"
 				ondragstart="drag(event)" width="50px" height="50px"
 				style="position: absolute; left: 180px; top: 200px; z-index: 2;">
 
 			<!-- Positioning of the location where the sim has to be dropped to book a sim -->
-			<div id="phone" ondrop="drop1(event)" ondragover="allowDrop(event)"  title="drop a sim here to book sim"
+			<div id="phone" ondrop="drop1(event)" ondragover="allowDrop(event)"  title="drop a sim here to book a sim"
 				style="position: absolute; left: 80%; top: 70%; width: 200px; height: 200px; border-color: blue; background: transparent; text-align: center; z-index: 2;">
 				<marquee>
 					<div id="rad1"></div>
@@ -166,7 +164,7 @@
 			<div id="india" ondrop="drop(event)" ondragover="allowDrop(event)" style="position: absolute; left: 50%; top: 53%; width: 90px; height: 92px; border-color: blue; background:transparent ; z-index: 2;"></div>
 
 			<br> <img id="drag1" src="/images/multipleSims.png"
-				draggable="true"  title="drag a sim to a country to add a  new sim" ondragstart="drag(event)" width="50px"
+				draggable="true"  title="drag the sim to India to deposit a  new sim" ondragstart="drag(event)" width="50px"
 				height="50px"
 				style="position: absolute; left: 1200px; top: 10px; z-index: 2">
 			<div id="rad2"z-index: 2  > 

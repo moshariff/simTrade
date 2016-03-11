@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
@@ -64,6 +65,7 @@ public class bookSim {
 
 		mav.addObject("sim-entity", new Sim());
 		mav.addObject("user-entity", new UsersNew());
+		
 		return mav;
 	}
 
@@ -79,18 +81,24 @@ public class bookSim {
 	public Object env1(HttpServletRequest request, @ModelAttribute UsersNew usersNew, @RequestParam String country) {
 		// call to service class to scan the Sim table and return list of
 		// sims(lsim).
+		
+		System.out.println("came to class country is: "+country);
 		List<Sim> lsim = simService.displayDetails(country);
+		
 		// convert list of sims to list of maps each map indicates a sim
 		ArrayList<Map<String, String>> lofmap = new ArrayList<>();
 		// loop through sims
+		System.out.println("inside for loop");
 		for (int i = 0; i < lsim.size(); i++) {
 			Map<String, String> str = new HashMap<>();
 			String s = lsim.get(i).getCurrentStatus();
+			System.out.println("s value: " +s);
 			String a = "active";
 			if (s == null) {
-				System.out.println();
+				System.out.println("null");
 
 			}
+			
 			// load only active Sims in a map(lofmap)
 			else if (s.equals(a)) {
 
@@ -130,9 +138,12 @@ public class bookSim {
 		//String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
 		  
 		//appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
-	  
-		String url = "http://localhost:8080/worldWeb";
-		return new ModelAndView("redirect:" + url);
+	  System.out.println("came till redirect");
+		RedirectView redirectView = new RedirectView();
+		  redirectView.setContextRelative(true);
+		  redirectView.setUrl("/worldWeb");
+		  return redirectView;
+		
 	}
 
 	// global counter for communication between controllers
@@ -143,10 +154,11 @@ public class bookSim {
 	 * passed
 	 */
 	@RequestMapping(value = "/checkAvailable", method = RequestMethod.POST)
-	public @ResponseBody void checkAvailable(@RequestBody String country) {
-
+	public @ResponseBody String checkAvailable(@RequestBody String country) {
+	
 		country = country.substring(0, country.length() - 1);
-		// scan the table of Sims to return a list of Sims
+			// scan the table of Sims to return a list of Sims
+		System.out.println("going thru checkAvailable");
 		List<Sim> lsim = simService.displayDetails(country);
 		// count to maintain the number of active sims
 		int count = 0;
@@ -163,37 +175,41 @@ public class bookSim {
 				count++;
 			}
 		}
-		counter = count;
+		if (count == 0)
+			return "empty";
+		else
+			return "available";
+		
 	}
 
 	/*
 	 * This controller returns to the front End if Sims are available or not
 	 * depending on the count in previous mapping
 	 */
-	@RequestMapping(value = "/replyavailable", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/replyavailable", method = RequestMethod.GET)
 	@ResponseBody
 	public String replyAvailable() {
-
+		System.out.println("counter value: "+counter);
 		if (counter == 0)
 			return "empty";
 		else
 			return "available";
 	}
-	
+	*/
 	
 	// Boolean variable true if the user exists and false if not
 
-			boolean userExist = false;
+	
 
 			/*
 			 * This controller checks when the user is booking a sim, if he already has
-			 * booked before if he has then returns true
+			 * booked before 
 			 */
 			@RequestMapping(value = "/checkName", method = RequestMethod.POST)
-			public @ResponseBody void checkName(@RequestBody String name) {
-				
+			public @ResponseBody String checkName(@RequestBody String name) {
 				name = name.substring(0, name.length() - 1);
 				name = name.replace('+', ' ');
+				boolean userExist = false;
 				DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
 				// scans user table to return list of users(lUser)
 				List<UsersNew> lUser = mapper.scan(UsersNew.class, scanExpression);
@@ -208,21 +224,14 @@ public class bookSim {
 						}
 						}
 				}
+				if (userExist == true) {
+					userExist = false;
+					return "exists";
+
+				} else {
+					return "goAhead";
+				}
 			}
 
-	/*
-	 * This controller mapping communicates to front end if user already exists
-	 */
-	@RequestMapping(value = "/replyname", method = RequestMethod.GET)
-	@ResponseBody
-	public String replyname() {
-		
-		if (userExist == true) {
-			userExist = false;
-			return "exists";
-
-		} else {
-			return "goAhead";
-		}
-	}
+	
 }
