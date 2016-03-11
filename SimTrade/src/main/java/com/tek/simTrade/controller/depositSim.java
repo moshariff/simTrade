@@ -81,23 +81,23 @@ public class depositSim {
 				/*String text="THANK YOU FOR RETURNING THE SIM \n"
 						+"Sim Phone Number: "+ sim.getPhoneNumber() +"\n Sim Type: "+ sim.getSimType()
 						 +"\n Country is: "+sim.getCountry();
-				appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED", text);*/
-				// free the user's phoneNumber field indicating he returned
+				appService.sendmail(lusers.get(i).getEmail(), "SIM RETURNED", text);
+				*/// free the user's phoneNumber field indicating he returned
+
 				lusers.get(i).setSimPhoneNumber(null);
 				// save the changes
 				mapper.save(lusers.get(i));
 			}
 		}
-		
+
 		
 		
 		RedirectView redirectView = new RedirectView();
 		redirectView.setContextRelative(true);
 		redirectView.setUrl("/worldWeb");
 		return redirectView;
+
+
+		
 		}
-	
-	
-
-
 }

@@ -33,7 +33,6 @@ import com.tek.simTrade.service.SimService;
 
 public class bookSim {
 
-	
 	/*
 	 * The DynamoDBMapper class is the entry point to DynamoDB. It provides
 	 * access to a DynamoDB endpoint and enables you to access your data in
@@ -57,7 +56,7 @@ public class bookSim {
 		simService.createSimTradeTable();
 		return "Sim Table Created";
 	}
-
+	
 	/*
 	 * Fires up the home page or the only page in our application
 	 */
@@ -131,14 +130,17 @@ public class bookSim {
 		usersNew.setSimPhoneNumber(phoneNumber);
 		// save the user
 		mapper.save(usersNew);
-		/*String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
+		//String text="U have Booked a Sim \n Sim Phone number is: " +simUse.getPhoneNumber() + "\n Sim Type: "+ simUse.getSimType() +"\n Country is: " +simUse.getCountry();  
 		  
-		appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
+
+		/*appService.sendmail(usersNew.getEmail(), "SIM BOOKED", text);
 		  */
+		
 		RedirectView redirectView = new RedirectView();
 		redirectView.setContextRelative(true);
 		redirectView.setUrl("/worldWeb");
 		return redirectView;
+
 	}
 
 	// global counter for communication between controllers
@@ -189,8 +191,6 @@ public class bookSim {
 	
 	// Boolean variable true if the user exists and false if not
 
-
-
 			boolean userExist = false;
 
 			/*
@@ -216,7 +216,6 @@ public class bookSim {
 						}
 						}
 				}
-				
 			}
 
 	/*
@@ -234,51 +233,4 @@ public class bookSim {
 			return "goAhead";
 		}
 	}
-
-  @RequestMapping(value = "/display-sims", method = RequestMethod.GET)
-
-  @ResponseBody public Object hello(@ModelAttribute Sim simfulldetails) {
- List<Sim> lsim = simService.displayDetails("US"); ArrayList<Map<String,
- String>> lofmap = new ArrayList<>(); for (int i = 0; i < lsim.size(); i++) {
-  Map<String, String> str = new HashMap<>(); String s =
-  lsim.get(i).getCurrentStatus();
-  
-  String a = "active"; if (s == null) { System.out.println(); } else if
-  (s.equals(a)) {
-  
-  str.put("country", lsim.get(i).getCountry()); str.put("expiryDate",
-  lsim.get(i).getExpiryDate()); str.put("simType", lsim.get(i).getSimType());
-  str.put("phoneNumber", lsim.get(i).getPhoneNumber()); str.put("plan",
-  lsim.get(i).getPlan()); str.put("currentStatus",
-  lsim.get(i).getCurrentStatus()); str.put("currentUser",
-  lsim.get(i).getCurrentUser()); str.put("timestamp",
-  lsim.get(i).getTimestamp()); lofmap.add(str); }
-  
-  } 
- 
- Collections.sort(lofmap, new Comparator<Map<String, String>>() { public int
-  compare(final Map<String, String> o1, final Map<String, String> o2) { return
-  o1.get("expiryDate").compareTo(o2.get("expiryDate")); } });
-  
-  
-  Map<String, String> maps1 = lofmap.get(0); String
-  phoneNumber=maps1.get("phoneNumber"); String country=maps1.get("country");
-  Sim simUse=mapper.load(Sim.class, country, phoneNumber);
-  simUse.setCurrentStatus("passive"); mapper.save(simUse);
-  
-  return lofmap; }
-
-
-
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView test() {
-		ModelAndView mav = new ModelAndView("test");
-
-		
-		return mav;
-	}
-
 }
-
-

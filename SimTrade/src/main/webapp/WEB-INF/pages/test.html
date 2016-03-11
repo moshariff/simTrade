@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+    	var data="hello";
+        $.post("testpost","hello",function(data,status){
+         
+        });
+    });
+});
+</script>
+</head>
+<body>
+<br><br>
+<button>Send an HTTP POST request to a page and get the result back</button>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>  
 <body ng-app="">
 
@@ -12,6 +29,7 @@
 <p>The input's valid state is:</p>
 <h1>{{myForm.myInput.$valid}}</h1>
 <p>Note that the state of the input field is "true" before you start writing in it, even if it does not contain an e-mail address.</p>
+
 
 </body>
 </html>
