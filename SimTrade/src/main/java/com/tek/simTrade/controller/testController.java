@@ -146,7 +146,7 @@ public class testController {
 	}
 	@RequestMapping(value = "/testpost", method = RequestMethod.POST)
 	public  ModelAndView testpost(@RequestBody String obj) {
-
+				System.out.println("sad: "+obj);
 				System.out.println("sad: "+obj);
 				String url = "http://localhost:8080/worldWeb";
 				return new ModelAndView("redirect:" + url);
